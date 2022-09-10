@@ -12,6 +12,10 @@
   },
   "dependencies": {
     "@storyblok/nuxt": "^4.3.0",
+    "primeflex": "^3.2.1",
+    "primeicons": "^5.0.0",
+    "primevue": "^3.17.0",
+    "primevue-designer": "github:bonomite/design-system",
     "sass": "^1.54.9"
   }
 }
