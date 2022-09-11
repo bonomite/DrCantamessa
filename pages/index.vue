@@ -1,27 +1,9 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
-
-const props = defineProps({
-//   propVar: {
-//     type: Boolean,
-//     default: false,
-//   },
-});
-
-//const emit = defineEmits(["change", "click"]);
-
-// lifecycle hooks
-onMounted(() => {
-
-});
+const story = await useStoryblok('home', { version: 'draft' })
 </script>
-
+ 
 <template>
-  <div>  
-    <div class="comp-name">
-        Index page
-    </div>
-  </div>
+  <StoryblokComponent :blok="story.content" />
 </template>
 
 <style lang="scss">
