@@ -8,12 +8,11 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "^3.0.0-rc.8",
-    "@storyblok/nuxt": "^4.2.0"
+    "@storyblok/nuxt": "^4.3.0",
+    "nuxt": "^3.0.0-rc.9"
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "primeflex": "^3.2.1",
     "primeicons": "^5.0.0",
     "primevue": "^3.17.0",
     "primevue-designer": "github:bonomite/design-system",

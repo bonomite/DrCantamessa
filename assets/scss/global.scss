@@ -31,3 +31,24 @@ figure {
 .js-focus-visible :focus:not(.focus-visible) {
     outline: none;
 }
+
+$contentWidth: 1440px;
+$mobileBreakpoint: '<lg';
+
+//@import './gap.scss';
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    .content {
+        width: 100%;
+        max-width: $contentWidth;
+        padding: 2.5rem;
+        @include media('<lg') {
+            padding: 2.5rem 1.5rem;
+        }
+    }
+}
