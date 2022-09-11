@@ -16,6 +16,7 @@
     "primeicons": "^5.0.0",
     "primevue": "^3.17.0",
     "primevue-designer": "github:bonomite/design-system",
-    "sass": "^1.54.9"
+    "sass": "^1.54.9",
+    "vue-gtag": "^2.0.1"
   }
 }

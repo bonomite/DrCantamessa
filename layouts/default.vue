@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import VFlexibleLink from '@nypublicradio/nypr-design-system-vue3/v2/src/components/VFlexibleLink.vue'
 import { ref, onMounted } from 'vue'
 import { useRuntimeConfig } from '#app'
-import { useSidebarIsOpen } from '~~/composables/states.js'
+/* import { useSidebarIsOpen } from '~~/composables/states.js' */
 
 const config = useRuntimeConfig()
 const route = useRoute()
+/* const sidebarOpen = ref(false) */
 
-const closeSidebar = () => (sidebarOpen.value = false)
+/* const closeSidebar = () => (sidebarOpen.value = false) */
 
 
 onMounted(() => {
@@ -51,7 +51,7 @@ onMounted(() => {
        <!--  <Meta name="fb:app_id" content="151261804904925" /> -->
         <Meta name="twitter:card" content="summary_large_image" />
         <Meta name="twitter:site" content="@drcantamessa" />
-        
+
         <Link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <Link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <Link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />

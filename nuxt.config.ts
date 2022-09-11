@@ -9,7 +9,7 @@ export default defineNuxtConfig({
         ]
     },
     css: [
-        'primevue-designer/src/assets/themes/vela/vela-purple-dr-cantamessa/vela-purpa-purple-dr-cantamessa.min.css',
+        'primevue-designer/src/assets/themes/drcantamessa/vela-purple-dr-cantamessa/vela-purple-dr-cantamessa.min.css',
         'primevue/resources/primevue.min.css',
         'primeicons/primeicons.css',
 
