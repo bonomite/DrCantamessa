@@ -2,14 +2,19 @@ import { defineNuxtConfig } from 'nuxt'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-    modules: [['@storyblok/nuxt', { accessToken: process.env.STORYBLOK_API_KEY_PREVIEW }]],
+    modules: [['@storyblok/nuxt', {
+        //accessToken: process.env.STORYBLOK_API_KEY_PREVIEW
+        accessToken: 'n0cZaH8WfD1oSAe0aOyCPQtt',
+        apiOptions: {
+            region: 'us',
+        }
+    }]],
     build: {
         transpile: [
             'primevue'
         ]
     },
     css: [
-        //'primevue-designer/src/assets/themes/drcantamessa/vela-purple-dr-cantamessa/vela-purple-dr-cantamessa.min.css',
         'primevue-designer/src/assets/themes/drcantamessa-2/viva-light/drcantamessa.min.css',
         'primevue/resources/primevue.min.css',
         'primeicons/primeicons.css',
@@ -39,4 +44,7 @@ export default defineNuxtConfig({
         },
     },
     components: true,
+    publicRuntimeConfig: {
+        STORYBLOK_API_KEY_PREVIEW: process.env['STORYBLOK_API_KEY_PREVIEW'],
+    },
 })

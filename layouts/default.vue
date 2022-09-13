@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import menuDataImport from '~/utilities/menuData.js'
+import { useMenuData } from '~/utilities/menuData.js'
 // import { useRuntimeConfig } from '#app'
 // import { useSidebarIsOpen } from '~~/composables/states.js'
 
@@ -8,7 +8,8 @@ import menuDataImport from '~/utilities/menuData.js'
 const route = useRoute()
 
 // const closeSidebar = () => (sidebarOpen.value = false)
-const menuData = ref(menuDataImport)
+const menuData = ref(await useMenuData())
+console.log('menuData = ', menuData.value)
 onMounted(() => {})
 </script>
 
@@ -77,6 +78,7 @@ onMounted(() => {})
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`' /> -->
     <!-- End Google Tag Manager (noscript) -->
     <!-- HEADER HERE -->
+    <NuxtLoadingIndicator />
     <section>
       <div class="content py-0">
         <Menubar :model="menuData">
