@@ -22,11 +22,15 @@ export async function useMenuData() {
     let menuDataArr = []
 
     await res.data.stories.forEach(item => {
-
-        menuDataArr.push({
-            label: item.name,
-            to: `${item.slug}`,
-        })
+        if (item.name !== 'Home') {
+            menuDataArr.push({
+                label: item.name,
+                to: `${item.slug}`,
+                command: () => {
+                    gaEvent('Click Tracking', 'Navigation', item.name)
+                }
+            })
+        }
     })
 
 
