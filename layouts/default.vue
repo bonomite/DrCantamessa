@@ -9,7 +9,6 @@ const route = useRoute()
 
 // const closeSidebar = () => (sidebarOpen.value = false)
 const menuData = ref(await useMenuData())
-console.log('menuData = ', menuData.value)
 onMounted(() => {})
 </script>
 
@@ -81,13 +80,13 @@ onMounted(() => {})
     <NuxtLoadingIndicator />
     <section>
       <div class="content py-0">
-        <Menubar :model="menuData">
+        <!-- <Menubar :model="menuData">
           <template #start>
             <nuxt-link to="/" class="logo-holder-link">
               <img src="/images/menu-full.svg" alt="Dr. Cantamessa logo" />
             </nuxt-link>
           </template>
-        </Menubar>
+        </Menubar> -->
       </div>
     </section>
     <main>

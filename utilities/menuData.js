@@ -9,10 +9,10 @@ export async function useMenuData() {
 
     const Storyblok = new StoryblokClient({
         region: 'us',
-        oauthToken: 'FnhNyCVvb5S3crFDdngnkAtt-110592-nhyGXYpUpx53g__sX_F9',
+        oauthToken: config.STORYBLOK_OAUTH_TOKEN,
     })
 
-    const res = await Storyblok.get('spaces/1001003/stories/', {
+    const res = await Storyblok.get(`spaces/${config.STORYBLOK_SPACE_ID}/stories/`, {
         //126850 is the space ID.
         //folder_only: true,
     })
@@ -22,7 +22,7 @@ export async function useMenuData() {
     let menuDataArr = []
 
     await res.data.stories.forEach(item => {
-        if (item.name !== 'Home') {
+        if (item.name !== 'Home' && item.parent_id === 0) {
             menuDataArr.push({
                 label: item.name,
                 to: `${item.slug}`,

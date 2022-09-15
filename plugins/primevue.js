@@ -12,6 +12,7 @@ import MegaMenu from 'primevue/megamenu/megamenu.esm.js'
 import Dropdown from 'primevue/dropdown/dropdown.esm.js'
 import Sidebar from 'primevue/sidebar/sidebar.esm.js'
 import Paginator from 'primevue/paginator/paginator.esm.js'
+import ProgressSpinner from 'primevue/progressspinner/progressspinner.esm.js'
 import Skeleton from 'primevue/skeleton/skeleton.esm.js'
 import Carousel from 'primevue/carousel/carousel.esm.js'
 import ScrollTop from 'primevue/scrolltop/scrolltop.esm.js'
@@ -35,6 +36,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Dropdown', Dropdown)
     nuxtApp.vueApp.component('Sidebar', Sidebar)
     nuxtApp.vueApp.component('Paginator', Paginator)
+    nuxtApp.vueApp.component('ProgressSpinner ', ProgressSpinner)
     nuxtApp.vueApp.component('Skeleton', Skeleton)
     nuxtApp.vueApp.component('Carousel', Carousel)
     nuxtApp.vueApp.component('ScrollTop', ScrollTop)
