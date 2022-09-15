@@ -10,7 +10,7 @@ const poster = story.value.content.poster
 
 <template>
   <section class="surgery-index">
-    <!-- <sb-image :src="poster" options="400x0" /> -->
+    <sb-image :src="poster" options="400x0" />
     <sb-image :src="poster" />
     <div class="content">
       <h1>{{ title }}</h1>

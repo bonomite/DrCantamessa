@@ -19,7 +19,7 @@ const props = defineProps({
   sizes: {
     type: Array,
     default() {
-      return [2, 3, 4]
+      return [2, 3]
     },
   },
 })
@@ -86,13 +86,15 @@ const handleImageLoad = () => {
 const srcset = () => {
   const template = transformedUrlToken
   const responsiveWidth = Number(getResponsiveSize.value)
+  const optionsWidth = Number(props.options.split('x')[0])
+  const theWidth = props.options ? optionsWidth : responsiveWidth
   if (template && props.sizes) {
     let srcset = ''
     let lastImage = false
     for (const size of props.sizes) {
       /* continue if it is NOT the lastImage and the image has more pixels than its rendered area */
-      if (!lastImage && maxWidth.value > responsiveWidth) {
-        let width = Math.round(responsiveWidth * size)
+      if (!lastImage && maxWidth.value > theWidth) {
+        let width = Math.round(theWidth * size)
         let height = Math.round(props.height * size)
 
         /* the image no longer has enough resolution to support the next srcset, use its maximum size and make it the last on the srcset list */
