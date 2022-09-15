@@ -133,7 +133,11 @@ onMounted(() => {
       class="loading-indication"
       :style="`aspect-ratio: ${maxWidth} / ${maxHeight}`"
     >
-      <ProgressSpinner />
+      <ProgressSpinner
+        strokeWidth="8"
+        animationDuration=".5s"
+        style="height: 80%"
+      />
     </div>
     <img
       v-else

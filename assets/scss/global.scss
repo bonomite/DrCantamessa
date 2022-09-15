@@ -78,3 +78,13 @@ section {
 a {
     color: var(--primary-color);
 }
+
+@keyframes p-progress-spinner-color {
+    100%,
+    0% {
+        stroke: var(--primary-color);
+    }
+    50% {
+        stroke: var(--primary-color-lighter);
+    }
+}
