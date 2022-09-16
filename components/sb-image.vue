@@ -46,8 +46,8 @@ const transformUrl = () => {
     transformedUrl.split('/')[9].split('x')[0],
     '%TOKEN-WIDTH%'
   )
-  console.log('image= ', `${image}/m/${option}`)
-  console.log('transformedUrlToken= ', transformedUrlToken)
+  //console.log('image= ', `${image}/m/${option}`)
+  //console.log('transformedUrlToken= ', transformedUrlToken)
   return transformedUrl
 }
 
