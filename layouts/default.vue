@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useMenuData } from '~/utilities/menuData.js'
+import BreakpointsSolver from '../components/breakpointsSolver.vue'
 // import { useRuntimeConfig } from '#app'
 // import { useSidebarIsOpen } from '~~/composables/states.js'
 
@@ -78,6 +79,7 @@ onMounted(() => {})
     <!-- End Google Tag Manager (noscript) -->
     <!-- HEADER HERE -->
     <NuxtLoadingIndicator />
+    <BreakpointsSolver />
     <section>
       <div class="content py-0">
         <!-- <Menubar :model="menuData">

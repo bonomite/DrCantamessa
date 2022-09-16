@@ -1,8 +1,7 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeMount, reactive } from 'vue'
-import { useMediaQuery } from '@vueuse/core'
-import breakpoint from 'primevue-designer/src/assets/themes/drcantamessa/viva-light/breakpoints.module.scss'
+import { ref, computed, onMounted } from 'vue'
 import ProgressSpinner from 'primevue/progressspinner'
+const currentBreakpoint = useCurrentBreakpoint()
 const props = defineProps({
   src: {
     type: Object,
@@ -25,17 +24,9 @@ const props = defineProps({
 })
 const imageRef = ref(false)
 const ready = ref(props.options ? true : false)
-const loaded = ref(false)
+//const loaded = ref(false)
 let transformedUrl = null
 let transformedUrlToken = null
-
-const isXs = useMediaQuery(`(max-width: ${breakpoint.xs}px`)
-const isSm = useMediaQuery(`(max-width: ${breakpoint.sm}px`)
-const isMd = useMediaQuery(`(max-width: ${breakpoint.md}px`)
-const isLg = useMediaQuery(`(max-width: ${breakpoint.lg}px`)
-const isXl = useMediaQuery(`(max-width: ${breakpoint.xl}px`)
-const isXxl = useMediaQuery(`(max-width: ${breakpoint.xxl}px`)
-const isXxxl = useMediaQuery(`(max-width: ${breakpoint.xxxl}px`)
 
 const maxWidth = computed(() => {
   const str = props.src.filename.split('/')[5]
@@ -46,27 +37,9 @@ const maxHeight = computed(() => {
   return str.split('x')[1]
 })
 
-const getResponsiveSize = computed(() => {
-  return isXs.value
-    ? breakpoint.xs
-    : isSm.value
-    ? breakpoint.sm
-    : isMd.value
-    ? breakpoint.md
-    : isLg.value
-    ? breakpoint.lg
-    : isXl.value
-    ? breakpoint.xl
-    : isXxl.value
-    ? breakpoint.xxl
-    : isXxxl.value
-    ? breakpoint.xxxl
-    : breakpoint.xxxl
-})
-
 const transformUrl = () => {
   const image = props.src.filename
-  const option = props.options || `${getResponsiveSize.value}x0`
+  const option = props.options || `${currentBreakpoint.value}x0`
   if (!image) return ''
   transformedUrl = `${image}/m/${option}`
   transformedUrlToken = transformedUrl.replace(
@@ -78,14 +51,14 @@ const transformUrl = () => {
   return transformedUrl
 }
 
-const handleImageLoad = () => {
-  imageRef.value.removeEventListener('load', handleImageLoad)
-  loaded.value = true
-}
+// const handleImageLoad = () => {
+//   imageRef.value.removeEventListener('load', handleImageLoad)
+//   loaded.value = true
+// }
 
 const srcset = () => {
   const template = transformedUrlToken
-  const responsiveWidth = Number(getResponsiveSize.value)
+  const responsiveWidth = Number(currentBreakpoint.value)
   const optionsWidth = Number(props.options.split('x')[0])
   const theWidth = props.options ? optionsWidth : responsiveWidth
   if (template && props.sizes) {
@@ -112,24 +85,27 @@ const srcset = () => {
         srcset += `${url} ${size}x${!lastImage ? ',' : ''} `
       }
     }
-    console.log('srcset -= ', srcset)
+    //console.log('srcset -= ', srcset)
     return srcset
   } else {
     return undefined
   }
 }
-
 // lifecycle hooks
 onMounted(() => {
   ready.value = true
-  nextTick(() => imageRef.value.addEventListener('load', handleImageLoad()))
+  //console.log('imageRef.value = ', imageRef.value)
+  // nextTick(() => {
+  //   console.log('AFTER imageRef.value = ', imageRef.value)
+  //   imageRef.value.addEventListener('load', handleImageLoad())
+  // })
 })
 </script>
 
 <template>
   <div class="sb-image">
     <div
-      v-if="!ready && !loaded"
+      v-if="!ready"
       class="loading-indication"
       :style="`aspect-ratio: ${maxWidth} / ${maxHeight}`"
     >
@@ -166,6 +142,7 @@ onMounted(() => {
     text-align: center;
   }
   .image {
+    display: block;
     width: 100%;
     height: auto;
   }
