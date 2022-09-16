@@ -5,6 +5,7 @@ const story = await useStoryblok('home', { version: 'draft' })
 <template>
   <section>
     <div class="content">
+      <nuxt-link to="/surgery">surgery</nuxt-link>
       <StoryblokComponent :blok="story.content" />
     </div>
   </section>

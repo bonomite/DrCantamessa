@@ -34,14 +34,12 @@ const getResponsiveSize = computed(() => {
 
 onMounted(() => {
   currentBreakpoint.value = getResponsiveSize.value
-  localStorage.setItem('drCantamessaBreakpoint', getResponsiveSize.value)
   isMounted.value = true
 })
 watch([isXs, isSm, isMd, isLg, isXl, isXxl, isXxxl], () => {
   //console.log('breakpoint watch changed')
   if (isMounted.value) {
     currentBreakpoint.value = getResponsiveSize.value
-    localStorage.setItem('drCantamessaBreakpoint', getResponsiveSize.value)
   }
 })
 </script>
