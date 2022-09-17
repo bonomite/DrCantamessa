@@ -12,7 +12,7 @@ console.log('story.value', story.value)
 <template>
   <section class="surgery-index">
     <nuxt-link to="/">home</nuxt-link>
-    <sb-image :src="poster" size="150x150" class="small" />
+    <sb-image :src="poster" size="50x150" class="small" />
     <sb-image :src="poster" />
     <sb-image :src="poster" greyscale />
     <div class="content">
@@ -28,8 +28,8 @@ console.log('story.value', story.value)
 .surgery-index {
   .sb-image {
     &.small {
-      width: 150px;
-      height: auto;
+      width: 50px;
+      height: 150px;
     }
   }
 }

@@ -55,9 +55,11 @@ const transformUrl = () => {
   const quality = props.quality
   const grey = props.greyscale
   if (!image) return ''
-  transformedUrl = `${image}/m/${size}/filters:format(webp):quality(${quality})${
-    grey ? ':grayscale()' : ''
-  }${focusPoint ? `:focal(${focusPoint})` : ''}`
+  transformedUrl = `${image}/m/${size}${
+    focusPoint ? '' : '/smart'
+  }/filters:format(webp):quality(${quality})${grey ? ':grayscale()' : ''}${
+    focusPoint ? `:focal(${focusPoint})` : ''
+  }`
   // add width token
   const transformedUrlTokenW = transformedUrl.replace(
     transformedUrl.split('/')[9].split('x')[0],
