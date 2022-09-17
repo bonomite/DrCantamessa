@@ -32,6 +32,7 @@ const props = defineProps({
 })
 const imageRef = ref(false)
 const ready = ref(props.size ? true : false)
+const focusPoint = props.src.focus
 let transformedUrl = null
 let transformedUrlToken = null
 
@@ -56,7 +57,7 @@ const transformUrl = () => {
   if (!image) return ''
   transformedUrl = `${image}/m/${size}/filters:format(webp):quality(${quality})${
     grey ? ':grayscale()' : ''
-  }`
+  }${focusPoint ? `:focal(${focusPoint})` : ''}`
   // add width token
   const transformedUrlTokenW = transformedUrl.replace(
     transformedUrl.split('/')[9].split('x')[0],

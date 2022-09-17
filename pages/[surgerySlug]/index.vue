@@ -6,6 +6,7 @@ const story = await useStoryblok('surgery', { version: 'draft' })
 const title = story.value.content.title
 const info = computed(() => renderRichText(story.value.content.info))
 const poster = story.value.content.poster
+console.log('story.value', story.value)
 </script>
 
 <template>
