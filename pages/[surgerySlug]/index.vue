@@ -11,8 +11,9 @@ const poster = story.value.content.poster
 <template>
   <section class="surgery-index">
     <nuxt-link to="/">home</nuxt-link>
-    <sb-image :src="poster" options="400x0" />
+    <sb-image :src="poster" size="150x150" class="small" />
     <sb-image :src="poster" />
+    <sb-image :src="poster" greyscale />
     <div class="content">
       <h1>{{ title }}</h1>
       <div v-html="info" />
@@ -24,9 +25,11 @@ const poster = story.value.content.poster
 
 <style lang="scss">
 .surgery-index {
-  .poster {
-    width: 100%;
-    height: auto;
+  .sb-image {
+    &.small {
+      width: 150px;
+      height: auto;
+    }
   }
 }
 </style>

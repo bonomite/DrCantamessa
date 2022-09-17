@@ -11,11 +11,19 @@ const props = defineProps({
     type: String,
     default: 'lazy',
   },
-  options: {
+  size: {
     type: String,
     default: '',
   },
-  sizes: {
+  quality: {
+    type: Number,
+    default: 70,
+  },
+  greyscale: {
+    type: Boolean,
+    default: false,
+  },
+  density: {
     type: Array,
     default() {
       return [2, 3]
@@ -23,8 +31,7 @@ const props = defineProps({
   },
 })
 const imageRef = ref(false)
-const ready = ref(props.options ? true : false)
-//const loaded = ref(false)
+const ready = ref(props.size ? true : false)
 let transformedUrl = null
 let transformedUrlToken = null
 
@@ -36,53 +43,65 @@ const maxHeight = computed(() => {
   const str = props.src.filename.split('/')[5]
   return str.split('x')[1]
 })
+const sizeWidth = Number(props.size ? props.size.split('x')[0] : maxWidth.value)
+const sizeHeight = Number(
+  props.size ? props.size.split('x')[1] : maxHeight.value
+)
 
 const transformUrl = () => {
   const image = props.src.filename
-  const option = props.options || `${currentBreakpoint.value}x0`
+  const size = props.size || `${currentBreakpoint.value}x0`
+  const quality = props.quality
+  const grey = props.greyscale
   if (!image) return ''
-  transformedUrl = `${image}/m/${option}`
-  transformedUrlToken = transformedUrl.replace(
+  transformedUrl = `${image}/m/${size}/filters:format(webp):quality(${quality})${
+    grey ? ':grayscale()' : ''
+  }`
+  // add width token
+  const transformedUrlTokenW = transformedUrl.replace(
     transformedUrl.split('/')[9].split('x')[0],
-    '%TOKEN-WIDTH%'
+    'TOKENWIDTH'
   )
-  //console.log('image= ', `${image}/m/${option}`)
-  //console.log('transformedUrlToken= ', transformedUrlToken)
+  // add height token
+  transformedUrlToken = transformedUrlTokenW.replace(
+    transformedUrl.split('/')[9].split('x')[1],
+    'TOKENHEIGHT'
+  )
   return transformedUrl
 }
-
-// const handleImageLoad = () => {
-//   imageRef.value.removeEventListener('load', handleImageLoad)
-//   loaded.value = true
-// }
 
 const srcset = () => {
   const template = transformedUrlToken
   const responsiveWidth = Number(currentBreakpoint.value)
-  const optionsWidth = Number(props.options.split('x')[0])
-  const theWidth = props.options ? optionsWidth : responsiveWidth
-  if (template && props.sizes) {
+  const theWidth = props.size ? sizeWidth : responsiveWidth
+  const theHeight = props.size ? sizeHeight : 0
+  if (template && props.density) {
     let srcset = ''
     let lastImage = false
-    for (const size of props.sizes) {
+    for (const densitySize of props.density) {
       /* continue if it is NOT the lastImage and the image has more pixels than its rendered area */
       if (!lastImage && maxWidth.value > theWidth) {
-        let width = Math.round(theWidth * size)
-        let height = Math.round(props.height * size)
+        let width = Math.round(theWidth * densitySize)
+        let height = Math.round(theHeight * densitySize)
 
         /* the image no longer has enough resolution to support the next srcset, use its maximum size and make it the last on the srcset list */
         if (width > maxWidth.value || height > maxHeight.value) {
-          //height = Math.round((height / width) * maxWidth.value)
-          height = maxHeight.value
-          width = maxWidth.value
           lastImage = true
         }
         //if we are on the last size in the array set lastImage to true
-        if (props.sizes.length - 1 === props.sizes.indexOf(size)) {
+        if (props.density.length - 1 === props.density.indexOf(densitySize)) {
           lastImage = true
         }
-        const url = template.replace('%TOKEN-WIDTH%', width)
-        srcset += `${url} ${size}x${!lastImage ? ',' : ''} `
+        const url = template
+          .replace('TOKENWIDTH', width)
+          .replace('TOKENHEIGHT', height)
+          //remove original qaulity filter
+          .replace(`:quality(${props.quality})`, '')
+        // lower the quasliy for the larger images
+        const quality = props.quality - (densitySize - 1) * 5
+        srcset += `${url}:quality(${quality}) ${densitySize}x${
+          !lastImage ? ',' : ''
+        } `
       }
     }
     //console.log('srcset -= ', srcset)
@@ -94,11 +113,6 @@ const srcset = () => {
 // lifecycle hooks
 onMounted(() => {
   ready.value = true
-  //console.log('imageRef.value = ', imageRef.value)
-  // nextTick(() => {
-  //   console.log('AFTER imageRef.value = ', imageRef.value)
-  //   imageRef.value.addEventListener('load', handleImageLoad())
-  // })
 })
 </script>
 
@@ -107,7 +121,7 @@ onMounted(() => {
     <div
       v-if="!ready"
       class="loading-indication"
-      :style="`aspect-ratio: ${maxWidth} / ${maxHeight}`"
+      :style="`aspect-ratio: ${sizeWidth} / ${sizeHeight};`"
     >
       <ProgressSpinner
         strokeWidth="8"
@@ -119,7 +133,7 @@ onMounted(() => {
       v-else
       ref="imageRef"
       class="image"
-      :style="`aspect-ratio: ${maxWidth} / ${maxHeight}`"
+      :style="`aspect-ratio: ${sizeWidth} / ${sizeHeight};`"
       :src="transformUrl()"
       :srcset="srcset()"
       :alt="props.src.alt"
