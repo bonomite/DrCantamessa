@@ -1,1 +1,0 @@
-export const useCurrentBreakpoint = () => useState<boolean>('currentBreakpoint', () => null)

@@ -30,6 +30,7 @@ const props = defineProps({
     },
   },
 })
+const imageHolderRef = ref(false)
 const imageRef = ref(false)
 const ready = ref(props.size ? true : false)
 const focusPoint = props.src.focus
@@ -49,9 +50,11 @@ const sizeHeight = Number(
   props.size ? props.size.split('x')[1] : maxHeight.value
 )
 
+let currentWidth = currentBreakpoint.value // will be determined on mounted
+
 const transformUrl = () => {
   const image = props.src.filename
-  const size = props.size || `${currentBreakpoint.value}x0`
+  const size = props.size || `${currentWidth}x0`
   const quality = props.quality
   const grey = props.greyscale
   if (!image) return ''
@@ -75,7 +78,7 @@ const transformUrl = () => {
 
 const srcset = () => {
   const template = transformedUrlToken
-  const responsiveWidth = Number(currentBreakpoint.value)
+  const responsiveWidth = Number(currentWidth)
   const theWidth = props.size ? sizeWidth : responsiveWidth
   const theHeight = props.size ? sizeHeight : 0
   if (template && props.density) {
@@ -113,14 +116,13 @@ const srcset = () => {
     return undefined
   }
 }
-// lifecycle hooks
 onMounted(() => {
   ready.value = true
 })
 </script>
 
 <template>
-  <div class="sb-image">
+  <div ref="imageHolderRef" class="sb-image">
     <div
       v-if="!ready"
       class="loading-indication"

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useMenuData } from '~/utilities/menuData.js'
+import { getMenuData } from '~/utilities/menuData.js'
 import BreakpointsSolver from '../components/breakpointsSolver.vue'
+const globalMenuData = useMenuData()
 // import { useRuntimeConfig } from '#app'
 // import { useSidebarIsOpen } from '~~/composables/states.js'
 
@@ -9,7 +10,8 @@ import BreakpointsSolver from '../components/breakpointsSolver.vue'
 const route = useRoute()
 
 // const closeSidebar = () => (sidebarOpen.value = false)
-const menuData = ref(await useMenuData())
+
+globalMenuData.value = await getMenuData()
 onMounted(() => {})
 </script>
 
@@ -82,13 +84,13 @@ onMounted(() => {})
     <BreakpointsSolver />
     <section>
       <div class="content py-0">
-        <!-- <Menubar :model="menuData">
+        <Menubar :model="globalMenuData">
           <template #start>
             <nuxt-link to="/" class="logo-holder-link">
               <img src="/images/menu-full.svg" alt="Dr. Cantamessa logo" />
             </nuxt-link>
           </template>
-        </Menubar> -->
+        </Menubar>
       </div>
     </section>
     <main>

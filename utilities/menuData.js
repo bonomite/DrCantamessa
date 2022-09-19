@@ -4,7 +4,7 @@
 import StoryblokClient from 'storyblok-js-client'
 import gaEvent from '../utilities/ga.js'
 
-export async function useMenuData() {
+export async function getMenuData() {
     const config = useRuntimeConfig()
 
     const Storyblok = new StoryblokClient({
