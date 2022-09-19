@@ -45,11 +45,13 @@ console.log('articles = ', articles.value)
 <template>
   <div>
     <div
-      v-if="articles && articles.stories.length > 0"
+      v-if="articles"
       class="folder-preview"
       v-for="(article, index) in articles.stories"
     >
-      <div v-if="article.name !== 'index'">name = {{ article.name }}</div>
+      <div v-if="!article.is_startpage && article.parent_id > 0">
+        name = {{ article.name }} {{ article.parent_id }}
+      </div>
     </div>
   </div>
 </template>
