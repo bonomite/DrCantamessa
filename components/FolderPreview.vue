@@ -1,6 +1,6 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import axios from 'axios'
+//import { ref, computed, onMounted } from 'vue'
+
 const config = useRuntimeConfig()
 const props = defineProps({
   to: {
@@ -18,38 +18,20 @@ const {
   `https://api-us.storyblok.com/v2/cdn/stories/?starts_with=${props.to}&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
   { key: `articles-${props.to}` }
 )
-
-// axios
-//   .get(
-//     `https://api-us.storyblok.com/v2/cdn/stories/?starts_with=${props.to}&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`
-//   )
-//   .then(function (response) {
-//     // handle success
-//     console.log('AXIOS = ', response.data.stories)
-//     articles.value = response.data.stories
-//   })
-//   .catch(function (error) {
-//     // handle error
-//     console.log(error)
-//   })
-//   .then(function () {
-//     // always executed
-//   })
-
-// lifecycle hooks
-
-onMounted(() => {})
-console.log('articles = ', articles.value)
 </script>
 
 <template>
   <div>
+    <div v-if="pending">LOADING!!!!!!!!!!!!!</div>
     <div
-      v-if="articles"
+      v-else
       class="folder-preview"
       v-for="(article, index) in articles.stories"
     >
-      <div v-if="!article.is_startpage && article.parent_id > 0">
+      <div
+        v-if="!article.is_startpage && article.parent_id > 0"
+        :key="`preview-${article.name}`"
+      >
         name = {{ article.name }} {{ article.parent_id }}
       </div>
     </div>
