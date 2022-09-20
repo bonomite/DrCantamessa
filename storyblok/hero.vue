@@ -5,8 +5,8 @@ const props = defineProps({ blok: Object })
 const title = computed(() => renderRichText(props.blok.title))
 const image = props.blok.image
 const bgImageUrl = `url(${image.filename})`
-console.log('image', image)
-console.log('bgImageUrl', bgImageUrl)
+//console.log('image', image)
+//console.log('bgImageUrl', bgImageUrl)
 //console.log('blok', props.blok)
 </script>
 <template>

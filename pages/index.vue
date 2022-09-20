@@ -8,7 +8,7 @@ const globalMenuData = useMenuData()
 
 // console.log('surgeries  = ', surgeries.value)
 
-console.log('globalMenuData  = ', globalMenuData.value)
+//console.log('globalMenuData  = ', globalMenuData.value)
 </script>
 
 <template>
