@@ -54,5 +54,6 @@ export default defineNuxtConfig({
         STORYBLOK_API_KEY_PUBLIC: process.env['STORYBLOK_API_KEY_PUBLIC'],
         STORYBLOK_SPACE_ID: process.env['STORYBLOK_SPACE_ID'],
         STORYBLOK_OAUTH_TOKEN: process.env['STORYBLOK_OAUTH_TOKEN'],
+        STORYBLOK_API_URL: process.env['STORYBLOK_API_URL'],
     },
 })

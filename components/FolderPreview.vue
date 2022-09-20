@@ -15,7 +15,7 @@ const {
   error,
   refresh,
 } = await useFetch(
-  `https://api-us.storyblok.com/v2/cdn/stories/?starts_with=${props.to}&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
+  `${config.STORYBLOK_API_URL}/stories/?starts_with=${props.to}&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
   { key: `articles-${props.to}` }
 )
 </script>

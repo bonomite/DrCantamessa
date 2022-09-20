@@ -3,17 +3,25 @@ import { ref, computed } from 'vue'
 
 const props = defineProps({ blok: Object })
 const title = computed(() => renderRichText(props.blok.title))
-const bgImageUrl = `url(${props.blok.image})`
-// console.log('bgImage', bgImage.value.filename)
-// console.log('bgImageUrl', bgImageUrl)
+const image = props.blok.image
+const bgImageUrl = `url(${image.filename})`
+console.log('image', image)
+console.log('bgImageUrl', bgImageUrl)
 //console.log('blok', props.blok)
 </script>
 <template>
-  <div v-editable="blok" class="hero w-full p-8 text-center">
+  <div v-editable="blok" class="hero w-full text-center">
     <div class="content">
-      <div v-html="title"></div>
-      <p>{{ blok.text }}</p>
-      <p>{{ blok.plain }}</p>
+      <div class="grid">
+        <div class="col-4">
+          <sb-image :src="image" size="427x0" />
+        </div>
+        <div class="col-8">
+          <div v-html="title"></div>
+          <p>{{ blok.text }}</p>
+          <p>{{ blok.plain }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
