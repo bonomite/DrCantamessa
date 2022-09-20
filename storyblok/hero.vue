@@ -13,10 +13,10 @@ const bgImageUrl = `url(${image.filename})`
   <div v-editable="blok" class="hero w-full text-center">
     <div class="content">
       <div class="grid">
-        <div class="col-4">
+        <div class="col-12 md:col-4">
           <sb-image :src="image" size="427x0" />
         </div>
-        <div class="col-8">
+        <div class="col-12 md:col-8">
           <div v-html="title"></div>
           <p>{{ blok.text }}</p>
           <p>{{ blok.plain }}</p>
