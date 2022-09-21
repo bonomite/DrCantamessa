@@ -8,7 +8,7 @@ const bgImage = props.blok.bgImage
 const bgImageUrl = `url(${bgImage.filename})`
 //console.log('image', image)
 //console.log('bgImageUrl', bgImageUrl)
-console.log('blok', props.blok)
+//console.log('blok', props.blok)
 </script>
 <template>
   <section v-editable="blok" class="hero w-full text-center">

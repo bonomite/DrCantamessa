@@ -12,7 +12,7 @@ const route = useRoute()
 
 const story = await useStoryblok(route.fullPath, { version: 'published' })
 
-console.log('story = ', story.value)
+//console.log('story = ', story.value)
 //console.log('articles = ', articles)
 import { onMounted, onUnmounted, computed } from 'vue'
 
@@ -28,6 +28,7 @@ onUnmounted(() => {})
     <Head>
       <Link rel="canonical" v-if="article" :href="article.url" />
     </Head>
+    ARTICLE SLUG
     <section v-if="article">
       <div class="content">
         <h1 class="page-name">{{ story.name }}</h1>

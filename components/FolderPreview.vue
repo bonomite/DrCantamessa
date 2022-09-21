@@ -9,15 +9,20 @@ const props = defineProps({
   },
 })
 
+// remove the initial "/"
+const folderName = props.to.replace(/^\/|\/$/g, '')
+
 const {
   data: articles,
   pending,
   error,
   refresh,
 } = await useFetch(
-  `${config.STORYBLOK_API_URL}/stories/?starts_with=${props.to}&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
-  { key: `articles-${props.to}` }
+  `${config.STORYBLOK_API_URL}/stories?starts_with=${folderName}&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
+  { key: `articles-${folderName}` }
 )
+
+//console.log('articles = ', articles.value)
 </script>
 
 <template>

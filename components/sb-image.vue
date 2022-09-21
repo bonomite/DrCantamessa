@@ -33,27 +33,29 @@ const props = defineProps({
 const imageHolderRef = ref(false)
 const imageRef = ref(false)
 const ready = ref(props.size ? true : false)
-const focusPoint = props.src.focus
+const focusPoint = props.src?.focus
 let transformedUrl = null
 let transformedUrlToken = null
 
 const maxWidth = computed(() => {
-  const str = props.src.filename.split('/')[5]
+  const str = props.src?.filename.split('/')[5]
   return str.split('x')[0]
 })
 const maxHeight = computed(() => {
-  const str = props.src.filename.split('/')[5]
+  const str = props.src?.filename.split('/')[5]
   return str.split('x')[1]
 })
-const sizeWidth = Number(props.size ? props.size.split('x')[0] : maxWidth.value)
+const sizeWidth = Number(
+  props.size ? props.size?.split('x')[0] : maxWidth.value
+)
 const sizeHeight = Number(
-  props.size ? props.size.split('x')[1] : maxHeight.value
+  props.size ? props.size?.split('x')[1] : maxHeight.value
 )
 
 let currentWidth = currentBreakpoint.value // will be determined on mounted
 
 const transformUrl = () => {
-  const image = props.src.filename
+  const image = props.src?.filename
   const size = props.size || `${currentWidth}x0`
   const quality = props.quality
   const grey = props.greyscale
@@ -141,7 +143,7 @@ onMounted(() => {
       :style="`aspect-ratio: ${sizeWidth} / ${sizeHeight};`"
       :src="transformUrl()"
       :srcset="srcset()"
-      :alt="props.src.alt"
+      :alt="props.src?.alt"
       :loading="props.loading"
     />
   </div>
