@@ -12,14 +12,16 @@ const globalMenuData = useMenuData()
 </script>
 
 <template>
-  <section>
-    <div class="content">
-      <StoryblokComponent :blok="story.content" />
-      <div v-for="(folder, index) in globalMenuData">
-        <FolderPreview :to="folder.to" :key="`folderPreview-${index}`" />
+  <div>
+    <StoryblokComponent :blok="story.content" />
+    <section>
+      <div class="content">
+        <div v-for="(folder, index) in globalMenuData">
+          <FolderPreview :to="folder.to" :key="`folderPreview-${index}`" />
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <style lang="scss">
