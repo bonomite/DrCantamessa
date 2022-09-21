@@ -13,6 +13,7 @@ export async function getMenuData() {
         `${config.STORYBLOK_API_URL}/links/?token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`
     )
 
+
     //console.log('menuData = ', linksData.value.links)
 
     let menuDataArr = []
@@ -22,7 +23,7 @@ export async function getMenuData() {
         if (value.is_folder || (!value.parent_id && value.real_path !== '/')) {
             menuDataArr.push({
                 label: value.name,
-                to: `${value.slug}`,
+                to: `/${value.slug}`,
                 command: () => {
                     gaEvent('Click Tracking', 'Navigation', value.name)
                 }

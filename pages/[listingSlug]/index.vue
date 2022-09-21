@@ -1,6 +1,7 @@
 <script setup>
-const story = await useStoryblok('surgery', { version: 'draft' })
-//console.log('surgery story = ', story.value.content)
+const route = useRoute()
+const story = await useStoryblok(route.fullPath, { version: 'published' })
+//console.log('story = ', story)
 
 // const date = new Date(story.value.first_published_at).toDateString()
 const title = story.value.content.title
@@ -10,7 +11,7 @@ console.log('story.value', story.value)
 </script>
 
 <template>
-  <section class="surgery-index">
+  <section class="index-page">
     <nuxt-link to="/">home</nuxt-link>
     <sb-image :src="poster" size="50x150" class="small" />
     <sb-image :src="poster" />
@@ -25,7 +26,7 @@ console.log('story.value', story.value)
 </template>
 
 <style lang="scss">
-.surgery-index {
+.index-page {
   .sb-image {
     &.small {
       width: 50px;
