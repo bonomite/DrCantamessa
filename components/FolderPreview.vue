@@ -43,11 +43,11 @@ console.log('articles = ', articles.value)
           :key="`preview-${article.name}`"
         >
           <div class="col-4">
-            <div class="article-card flex flex-column">
+            <div class="article-card flex flex-column relative">
               <nuxt-link :to="article.full_slug">
                 <sb-image :src="article.content.poster" size="443x222" />
               </nuxt-link>
-              <nuxt-link :to="article.full_slug">
+              <nuxt-link class="overlay-title" :to="article.full_slug">
                 <h3>{{ article.name }}</h3>
               </nuxt-link>
             </div>
@@ -60,5 +60,36 @@ console.log('articles = ', articles.value)
 
 <style lang="scss">
 .folder-preview {
+  .article-card {
+    .overlay-title {
+      position: absolute;
+      bottom: 0;
+      padding: 1rem;
+      padding-top: 3rem;
+      width: 100%;
+      background: -moz-linear-gradient(
+        top,
+        rgba(71, 31, 97, 0) 0%,
+        rgba(71, 31, 97, 0.8) 58%,
+        rgba(71, 31, 97, 1) 100%
+      );
+      background: -webkit-linear-gradient(
+        top,
+        rgba(71, 31, 97, 0) 0%,
+        rgba(71, 31, 97, 0.8) 58%,
+        rgba(71, 31, 97, 1) 100%
+      );
+      background: linear-gradient(
+        to bottom,
+        rgba(71, 31, 97, 0) 0%,
+        rgba(71, 31, 97, 0.8) 58%,
+        rgba(71, 31, 97, 1) 100%
+      );
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00471f61', endColorstr='#471f61',GradientType=0 );
+      * {
+        color: #ffffff;
+      }
+    }
+  }
 }
 </style>
