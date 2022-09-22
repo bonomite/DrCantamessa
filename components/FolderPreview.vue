@@ -18,27 +18,26 @@ const {
   error,
   refresh,
 } = await useFetch(
-  `${config.STORYBLOK_API_URL}/stories?starts_with=${folderName}&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
+  `${config.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0&per_page=3&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
   { key: `articles-${folderName}` }
 )
 
-//console.log('articles = ', articles.value)
+console.log('articles = ', articles.value)
 </script>
 
 <template>
-  <div>
+  <div class="folder-preview" v-if="articles.stories.length > 1">
     <div v-if="pending">LOADING!!!!!!!!!!!!!</div>
-    <div
-      v-else
-      class="folder-preview"
-      v-for="(article, index) in articles.stories"
-    >
-      <div
-        v-if="!article.is_startpage && article.parent_id > 0"
+    <div v-else class="grid">
+      <template
+        class=""
+        v-for="(article, index) in articles.stories"
         :key="`preview-${article.name}`"
       >
-        name = {{ article.name }} {{ article.parent_id }}
-      </div>
+        <div class="col-4">
+          <div>name = {{ article.name }} {{ article.parent_id }}</div>
+        </div>
+      </template>
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-const story = await useStoryblok('home', { version: 'published' })
+const story = await useStoryblok('links', { version: 'published' })
 const globalMenuData = useMenuData()
 //const config = useRuntimeConfig()
 // const { data: surgeries } = await useFetch(
@@ -13,22 +13,16 @@ const globalMenuData = useMenuData()
 
 <template>
   <div>
-    <section class="home-page">
+    <section class="links-page">
       <div class="content">
-        <StoryblokComponent :blok="story.content" />
         <h1>{{ story.content.title }}</h1>
-        <template
-          v-for="(folder, index) in globalMenuData"
-          :key="`folderPreview-${index}`"
-        >
-          <FolderPreview :to="folder.to" />
-        </template>
+        <StoryblokComponent :blok="story.content" />
       </div>
     </section>
   </div>
 </template>
 
 <style lang="scss">
-.home-page {
+.links-page {
 }
 </style>
