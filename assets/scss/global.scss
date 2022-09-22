@@ -1,57 +1,4 @@
 @import './gutters.scss';
-html {
-    height: 100%;
-    // background: rgb(225, 215, 229);
-    // background: -moz-linear-gradient(
-    //     top,
-    //     rgba(225, 215, 229, 1) 0%,
-    //     rgba(238, 232, 239, 1) 50%,
-    //     rgba(158, 120, 172, 1) 100%
-    // );
-    // background: -webkit-linear-gradient(
-    //     top,
-    //     rgba(225, 215, 229, 1) 0%,
-    //     rgba(238, 232, 239, 1) 50%,
-    //     rgba(158, 120, 172, 1) 100%
-    // );
-    // background: linear-gradient(
-    //     to bottom,
-    //     rgba(225, 215, 229, 1) 0%,
-    //     rgba(238, 232, 239, 1) 50%,
-    //     rgba(158, 120, 172, 1) 100%
-    // );
-    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1d7e5', endColorstr='#9e78ac',GradientType=0 );
-}
-
-body {
-    font-family: var(--font-family);
-    background-color: var(--surface-ground);
-    color: var(--text-color);
-    font-size: inherit;
-    padding: 0;
-    margin: 0;
-    min-height: 100%;
-    -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-body.overlay-is-active {
-    overflow: hidden;
-}
-* {
-    margin: 0;
-    padding: 0;
-}
-
-figure {
-    margin: 0;
-}
-
-// hide outline when using a mouse but not when using a keyboard
-// https://github.com/WICG/focus-visible
-.js-focus-visible :focus:not(.focus-visible) {
-    outline: none;
-}
 
 $contentWidth: 1440px;
 $mobileBreakpoint: '<lg';
@@ -89,5 +36,12 @@ a {
     }
     50% {
         stroke: var(--primary-color-lighter);
+    }
+}
+
+// extentions
+.p-divider.p-divider-horizontal {
+    &:before {
+        border-top-color: var(--primary-color-lighter);
     }
 }

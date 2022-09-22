@@ -82,7 +82,7 @@ onMounted(() => {})
     <!-- HEADER HERE -->
     <NuxtLoadingIndicator />
     <BreakpointsSolver />
-    <section>
+    <section class="menu-section">
       <div class="content py-0">
         <Menubar :model="globalMenuData">
           <template #start>
@@ -101,43 +101,50 @@ onMounted(() => {})
 </template>
 
 <style lang="scss">
-.p-menubar {
-  border: none;
-  border-radius: 0;
-  padding: 1.5rem 0;
-  align-items: baseline;
-  justify-content: space-between;
-  .logo-holder-link {
-    img {
-      width: 375px;
-      position: relative;
-      display: block;
-      margin-right: 0.5rem;
-      margin-bottom: -2px;
-      @include media('<md') {
-        width: 60vw;
-      }
-      @include media('<sm') {
-        width: 70vw;
+.menu-section {
+  background: var(--surface-a);
+  .p-menubar {
+    border: none;
+    border-radius: 0;
+    padding: 1.5rem 0;
+    align-items: baseline;
+    justify-content: space-between;
+
+    .logo-holder-link {
+      img {
+        width: 375px;
+        position: relative;
+        display: block;
+        margin-right: 0.5rem;
+        margin-bottom: -2px;
+        @include media('<md') {
+          width: 60vw;
+        }
+        @include media('<sm') {
+          width: 70vw;
+        }
       }
     }
-  }
-  .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
-    transition: background 0.25s;
-    -webkit-transition: background 0.25s;
-  }
-  .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
-    color: var(--primary-color);
-  }
-  .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
-    background: var(--primary-color-lighter);
-    .p-menuitem-text {
-      color: var(--primary-color-darker);
+    .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
+      transition: background 0.25s;
+      -webkit-transition: background 0.25s;
     }
-  }
-  &.p-menubar-mobile-active .p-menubar-root-list {
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.8);
+    .p-menubar-root-list {
+      gap: 1rem;
+    }
+    // .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+    //   color: var(--primary-color);
+    // }
+    // .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
+    //   background: var(--primary-color-lighter);
+    //   .p-menuitem-text {
+    //     color: var(--primary-color-darker);
+    //   }
+    // }
+    // &.p-menubar-mobile-active .p-menubar-root-list {
+    //   backdrop-filter: blur(10px);
+    //   background: rgba(255, 255, 255, 0.8);
+    // }
   }
 }
 </style>
