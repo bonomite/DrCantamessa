@@ -2,7 +2,7 @@
 defineProps({ blok: Object })
 </script>
 <template>
-  <div v-editable="blok" class="grid feature-blok">
+  <div v-if="blok" v-editable="blok" class="grid feature-blok">
     <StoryblokComponent
       v-for="blok in blok.columns"
       :key="blok._uid"

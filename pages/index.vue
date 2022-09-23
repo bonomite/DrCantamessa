@@ -1,5 +1,5 @@
 <script setup>
-const story = await useStoryblok('home', { version: 'published' })
+const story = await useAsyncStoryblok('home', { version: 'published' })
 const globalMenuData = useMenuData()
 //const config = useRuntimeConfig()
 // const { data: surgeries } = await useFetch(
@@ -15,7 +15,7 @@ const globalMenuData = useMenuData()
   <div>
     <section class="home-page">
       <div class="content">
-        <StoryblokComponent :blok="story.content" />
+        <StoryblokComponent v-if="story" :blok="story.content" />
         <h1>{{ story.content.title }}</h1>
         <template
           v-for="(folder, index) in globalMenuData"

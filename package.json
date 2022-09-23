@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@nuxt/image-edge": "^1.0.0-27719579.87dcdf2",
-    "@storyblok/nuxt": "^4.3.0",
+    "@storyblok/nuxt": "^4.4.1",
     "nuxt": "^3.0.0-rc.11"
   },
   "dependencies": {

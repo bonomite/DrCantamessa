@@ -1,5 +1,5 @@
 <script setup>
-const story = await useStoryblok('gallery', { version: 'published' })
+const story = await useAsyncStoryblok('gallery', { version: 'published' })
 const globalMenuData = useMenuData()
 //const config = useRuntimeConfig()
 // const { data: surgeries } = await useFetch(
@@ -16,7 +16,7 @@ const globalMenuData = useMenuData()
     <section class="gallery-page">
       <div class="content">
         <h1>{{ story.content.title }}</h1>
-        <StoryblokComponent :blok="story.content" />
+        <StoryblokComponent v-if="story" :blok="story.content" />
       </div>
     </section>
   </div>

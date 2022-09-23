@@ -1,6 +1,6 @@
 <script setup>
 const route = useRoute()
-const story = await useStoryblok(route.fullPath, { version: 'published' })
+const story = await useAsyncStoryblok(route.fullPath, { version: 'published' })
 console.log('story = ', story)
 
 const title = story.value.content.title
@@ -19,7 +19,7 @@ const poster = story.value.content.poster
     <div class="content">
       <h1>title = {{ title }}</h1>
       <div v-html="info" />
-      <StoryblokComponent :blok="story.content" />
+      <StoryblokComponent v-if="story" :blok="story.content" />
     </div>
   </section>
 </template>

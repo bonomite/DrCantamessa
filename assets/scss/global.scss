@@ -1,3 +1,36 @@
+$headings: h1 h2 h3 h4 h5 h6;
+$font-size-base: 16px;
+
+$font-size-upper: 62px;
+$font-size-dec: 8px;
+$font-size-mobile-divider: 1.5;
+@each $heading in $headings {
+    #{$heading} {
+        font-size: $font-size-upper;
+        font-size: calc($font-size-upper / $font-size-base) + em;
+        @include media('<md') {
+            font-size: calc(calc($font-size-upper / $font-size-base) / $font-size-mobile-divider) + em;
+        }
+    }
+    $font-size-upper: $font-size-upper - $font-size-dec;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-family-header);
+    line-height: 1.15em;
+}
+p {
+    line-height: 1.5em;
+}
+p.p-small {
+    font-size: 0.8em;
+    color: var(--text-color-secondary);
+}
+
 @import './gutters.scss';
 
 $contentWidth: 1440px;
