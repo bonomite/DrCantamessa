@@ -42,7 +42,7 @@ console.log('articles = ', articles.value)
           v-for="(article, index) in articles.stories"
           :key="`preview-${article.name}`"
         >
-          <div class="col-4">
+          <div class="col-12 md:col-4">
             <div class="article-card flex flex-column relative">
               <nuxt-link :to="article.full_slug">
                 <sb-image :src="article.content.poster" size="443x222" />

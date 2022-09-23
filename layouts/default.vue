@@ -117,8 +117,11 @@ onMounted(() => {})
         display: block;
         margin-right: 0.5rem;
         margin-bottom: -2px;
+        @include media('<xl') {
+          width: 25vw;
+        }
         @include media('<md') {
-          width: 60vw;
+          width: 55vw;
         }
         @include media('<sm') {
           width: 70vw;
