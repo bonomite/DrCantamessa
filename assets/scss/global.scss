@@ -36,8 +36,8 @@ p.p-small {
 $contentWidth: 1440px;
 $mobileBreakpoint: '<lg';
 
+$primaryColor: var(--primary-color);
 //@import './gap.scss';
-
 section {
     display: flex;
     flex-direction: column;
