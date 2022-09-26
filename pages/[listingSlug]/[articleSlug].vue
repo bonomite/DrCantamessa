@@ -50,9 +50,13 @@ const embed = story.value.content.embedcode
           <div class="col-12 md:col-5 flex flex-column justify-content-between">
             <div>
               <h1 class="text-primary">{{ story.content.title }}</h1>
-              <p class="p-small">Patient name: {{ patientName }}</p>
-              <p class="p-small">Performed by: {{ performedBy }}</p>
-              <div v-html="description" class="mt-2" />
+              <p v-if="patientName" class="p-small">
+                Patient name: {{ patientName }}
+              </p>
+              <p v-if="performedBy" class="p-small">
+                Performed by: {{ performedBy }}
+              </p>
+              <div v-if="description" v-html="description" class="mt-2" />
             </div>
             <div class="mt-2">
               <p class="p-small">Published: {{ date }}</p>
