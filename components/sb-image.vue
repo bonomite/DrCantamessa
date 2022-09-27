@@ -23,6 +23,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  preview: {
+    type: Boolean,
+    default: false,
+  },
   density: {
     type: Array,
     default() {
@@ -31,6 +35,7 @@ const props = defineProps({
   },
 })
 const imageHolderRef = ref(false)
+const loadingEnlargedImage = ref(false)
 const imageRef = ref(false)
 const ready = ref(props.size ? true : false)
 const focusPoint = props.src?.focus
@@ -118,6 +123,31 @@ const srcset = () => {
     return undefined
   }
 }
+
+const computedEnlargeSrc = computed(() => {
+  const template = transformedUrlToken
+
+  return template
+    ? template
+        .replace('TOKENWIDTH', maxWidth.value)
+        .replace('TOKENHEIGHT', maxHeight.value)
+        //remove original qaulity filter
+        .replace(`:quality(${props.quality})`, ':quality(80)')
+    : undefined
+})
+
+const enlarge = () => {
+  console.log('enlarging', computedEnlargeSrc.value)
+  loadingEnlargedImage.value = true
+  const img = document.getElementsByClassName('p-image-preview')
+  img[0].setAttribute('alt', props.alt)
+  img[0].setAttribute('src', computedEnlargeSrc.value)
+}
+
+const closeEnlarge = () => {
+  loadingEnlargedImage.value = false
+}
+
 onMounted(() => {
   ready.value = true
 })
@@ -136,7 +166,7 @@ onMounted(() => {
         style="height: 80%"
       />
     </div>
-    <img
+    <Image
       v-else
       ref="imageRef"
       class="image"
@@ -145,11 +175,36 @@ onMounted(() => {
       :srcset="srcset()"
       :alt="props.src?.alt"
       :loading="props.loading"
+      :preview="props.preview"
+      @show="enlarge"
+      @hide="closeEnlarge"
     />
+    <div v-if="loadingEnlargedImage">
+      <Teleport to=".p-component-overlay">
+        <ProgressSpinner
+          v-if="loadingEnlargedImage"
+          strokeWidth="8"
+          animationDuration=".5s"
+          style="
+            z-index: -1;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+          "
+          stroke-width="6"
+        />
+      </Teleport>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
+.p-image-toolbar {
+  z-index: 2;
+}
 .sb-image {
   width: 100%;
   height: auto;
@@ -162,7 +217,7 @@ onMounted(() => {
     justify-content: center;
     text-align: center;
   }
-  .image {
+  .p-image img {
     display: block;
     width: 100%;
     height: auto;

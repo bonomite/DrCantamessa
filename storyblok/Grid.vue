@@ -1,9 +1,9 @@
 <script setup>
 const props = defineProps({ blok: Object })
 const items = props.blok.columns.length
-console.log('items', items)
+//console.log('items', items)
 const colValue = 12 / items
-console.log('colValue', colValue)
+//console.log('colValue', colValue)
 const gridClass =
   colValue < 4
     ? `col-12 md:col-6 xxl:col-3`
