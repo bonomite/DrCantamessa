@@ -43,10 +43,15 @@ const embedCode = computed(() => {
   .twitter-tweet {
     max-width: 100% !important;
     justify-content: center;
+    min-width: unset !important;
     iframe {
       width: 550px !important;
       max-width: 100% !important;
       flex-grow: unset !important;
+      min-width: unset !important;
+      * {
+        min-width: unset !important;
+      }
     }
   }
   .instagram-media {
@@ -55,6 +60,7 @@ const embedCode = computed(() => {
     margin: auto !important;
     width: 550px !important;
     max-width: 100% !important;
+    min-width: unset !important;
     flex-grow: unset !important;
   }
 }

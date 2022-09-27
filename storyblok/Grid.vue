@@ -1,13 +1,28 @@
 <script setup>
-defineProps({ blok: Object })
+const props = defineProps({ blok: Object })
+const items = props.blok.columns.length
+console.log('items', items)
+const colValue = 12 / items
+console.log('colValue', colValue)
+const gridClass =
+  colValue < 4
+    ? `col-12 md:col-6 xxl:col-3`
+    : colValue < 6
+    ? `col-12 md:col-6 lg:col-4`
+    : 'col-12 md:col-6'
 </script>
 <template>
-  <div v-if="blok" v-editable="blok" class="grid feature-blok">
+  <div
+    v-if="blok"
+    v-editable="blok"
+    class="grid feature-blok justify-content-center"
+  >
     <StoryblokComponent
       v-for="blok in blok.columns"
       :key="blok._uid"
       :blok="blok"
-      class="col-12 md:col-6 xl:col-3 feature"
+      class="feature"
+      :class="gridClass"
     />
   </div>
 </template>
