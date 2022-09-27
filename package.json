@@ -15,10 +15,12 @@
   "dependencies": {
     "@vueuse/core": "^9.2.0",
     "axios": "^0.27.2",
+    "mosha-vue-toastify": "^1.0.23",
     "primeicons": "^5.0.0",
     "primevue": "^3.17.0",
     "primevue-designer": "github:bonomite/design-system",
     "sass": "^1.54.9",
-    "vue-gtag": "^2.0.1"
+    "vue-gtag": "^2.0.1",
+    "vue-social-sharing": "^4.0.0-alpha4"
   }
 }

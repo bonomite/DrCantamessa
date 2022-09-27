@@ -9,7 +9,7 @@ export default defineNuxtConfig({
             //bridge: true,
             //useApiClient: true
         }
-    }]],
+    }, 'vue-social-sharing/nuxt', 'mosha-vue-toastify']],
     image: {
 
 
@@ -23,6 +23,7 @@ export default defineNuxtConfig({
         'primevue-designer/src/assets/themes/drcantamessa/viva-light/drcantamessa.min.css',
         'primevue/resources/primevue.min.css',
         'primeicons/primeicons.css',
+        'mosha-vue-toastify/dist/style.css',
     ],
     vite: {
         css: {
@@ -50,6 +51,7 @@ export default defineNuxtConfig({
     },
     components: true,
     publicRuntimeConfig: {
+        BASE_URL: process.env['BASE_URL'],
         STORYBLOK_API_KEY_PREVIEW: process.env['STORYBLOK_API_KEY_PREVIEW'],
         STORYBLOK_API_KEY_PUBLIC: process.env['STORYBLOK_API_KEY_PUBLIC'],
         STORYBLOK_SPACE_ID: process.env['STORYBLOK_SPACE_ID'],

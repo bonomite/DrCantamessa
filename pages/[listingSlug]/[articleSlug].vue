@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, computed } from 'vue'
+import { computed } from 'vue'
 import { formatDate } from '~/utilities/helpers.js'
 const route = useRoute()
 const story = await useAsyncStoryblok(route.fullPath, { version: 'published' })
@@ -55,7 +55,10 @@ const embed = story.value.content.embedcode
           </div>
           <div class="col-12 lg:col-5 flex flex-column justify-content-between">
             <div>
-              <h1 class="text-primary">{{ story.content.title }}</h1>
+              <!-- <ArticleSocialShare :story="story" class="text-right" /> -->
+              <h1 class="text-primary mb-2">
+                {{ story.content.title }}
+              </h1>
               <p v-if="patientName" class="p-small">
                 Patient name: {{ patientName }}
               </p>
@@ -64,11 +67,14 @@ const embed = story.value.content.embedcode
               </p>
               <div v-if="description" v-html="description" class="mt-2" />
             </div>
-            <div class="mt-2">
-              <p class="p-small">Published: {{ date }}</p>
-              <p v-if="date !== dateUpdated" class="p-small">
-                Updated: {{ dateUpdated }}
-              </p>
+            <div class="mt-2 flex justify-content-between">
+              <div>
+                <p class="p-small">Published: {{ date }}</p>
+                <p v-if="date !== dateUpdated" class="p-small">
+                  Updated: {{ dateUpdated }}
+                </p>
+              </div>
+              <ArticleSocialShare :story="story" class="text-right" />
             </div>
           </div>
           <div class="col-12">
