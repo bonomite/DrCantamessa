@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps({ blok: Object })
-console.log('props', props)
+//console.log('props', props)
 </script>
 <template>
   <div v-if="blok" v-editable="blok" class="blok gallery-blok mb-3">

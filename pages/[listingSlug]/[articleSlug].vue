@@ -31,6 +31,17 @@ const embed = story.value.content.embedcode
   <div>
     <Head>
       <Link rel="canonical" v-if="story" :href="story.url" />
+      <Meta name="og:title" v-if="story" :content="story.content.title" />
+      <Meta
+        name="og:description"
+        v-if="story"
+        :content="story.content.description.content[0].content[0].text"
+      />
+      <Meta
+        name="og:image"
+        v-if="story"
+        :content="story.content.poster.filename"
+      />
     </Head>
     <section class="article-page">
       <div class="content">
@@ -40,12 +51,7 @@ const embed = story.value.content.embedcode
             <video v-else-if="video" controls autoplay muted class="video">
               <source :src="video.filename" type="video/mp4" />
             </video>
-            <sb-image
-              v-else
-              :src="story.content.poster"
-              size="786x442"
-              class="poster"
-            />
+            <sb-image v-else :src="poster" size="786x442" class="poster" />
           </div>
           <div class="col-12 lg:col-5 flex flex-column justify-content-between">
             <div>

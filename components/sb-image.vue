@@ -137,7 +137,7 @@ const computedEnlargeSrc = computed(() => {
 })
 
 const enlarge = () => {
-  console.log('enlarging', computedEnlargeSrc.value)
+  //console.log('enlarging', computedEnlargeSrc.value)
   loadingEnlargedImage.value = true
   const img = document.getElementsByClassName('p-image-preview')
   img[0].setAttribute('alt', props.alt)

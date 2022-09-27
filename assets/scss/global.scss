@@ -62,6 +62,10 @@ a {
     color: var(--primary-color);
 }
 
+.no-wrap {
+    white-space: nowrap;
+}
+
 @keyframes p-progress-spinner-color {
     100%,
     0% {

@@ -8,10 +8,11 @@ const globalMenuData = useMenuData()
 
 // const config = useRuntimeConfig()
 const route = useRoute()
-
+const year = new Date().getFullYear()
 // const closeSidebar = () => (sidebarOpen.value = false)
 
 globalMenuData.value = await getMenuData()
+console.log('globalMenuData = ', globalMenuData.value)
 onMounted(() => {})
 </script>
 
@@ -97,6 +98,63 @@ onMounted(() => {})
       <slot />
     </main>
     <!-- FOOTER HERE -->
+    <section class="footer">
+      <div class="content">
+        <div class="grid">
+          <div class="col-12 flex align-items-center">
+            <nuxt-link to="/">
+              <sb-image
+                class="icon"
+                :src="{
+                  filename:
+                    'https://a-us.storyblok.com/f/1001003/512x512/997086457b/drc-icon.png',
+                }"
+                size="512x512"
+              />
+            </nuxt-link>
+            <div class="name-social ml-3">
+              <h4>Dr. Tracey <span class="no-wrap">Cantamessa DVM</span></h4>
+              <div class="social-accounts flex gap-3 mt-2">
+                <a
+                  href="https://www.facebook.com/drcantamessadvm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="pi pi-facebook" />
+                </a>
+                <a
+                  href="https://twitter.com/Dr_Cantamessa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="pi pi-twitter" />
+                </a>
+                <a
+                  href="https://www.instagram.com/dr_cantamessa/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="pi pi-instagram" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="menu grid mt-4">
+            <div class="col-12 flex flex-wrap row-gap-4 column-gap-6">
+              <nuxt-link v-for="item in globalMenuData" :to="item.to">
+                {{ item.label }}
+              </nuxt-link>
+            </div>
+          </div>
+          <p class="col-12 p-small text-center mt-4">
+            © {{ year }} Dr. Tracey Cantamessa DVM, All Rights reserved.
+          </p>
+          <p class="col-12 p-small text-center">
+            Site by: <a href="https://www.thomasbono.com">ThomasBono.com</a>
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -148,6 +206,36 @@ onMounted(() => {})
     //   backdrop-filter: blur(10px);
     //   background: rgba(255, 255, 255, 0.8);
     // }
+  }
+}
+.footer {
+  background: var(--surface-a);
+  .icon {
+    width: 128px;
+    height: auto;
+  }
+  .social-accounts {
+    a {
+      i {
+        color: var(--primary-color-light);
+        transition: color 0.25s;
+        -webkit-transition: color 0.25s;
+        font-size: 2rem;
+      }
+      &:hover i {
+        color: var(--primary-color-darker);
+      }
+    }
+  }
+  .menu {
+    padding-left: 155px;
+    padding-right: 2rem;
+    @include media('<sm') {
+      padding-left: 2rem;
+    }
+    a {
+      text-decoration: none;
+    }
   }
 }
 </style>
