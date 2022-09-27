@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps({
   code: {
@@ -9,13 +9,20 @@ const props = defineProps({
 })
 
 const isYoutube = ref(props.code.includes('https://www.youtube.com/embed'))
+const isGoogleMaps = ref(
+  props.code.includes('https://www.google.com/maps/embed')
+)
+
+const embedCode = computed(() => {
+  return props.code
+})
 </script>
 
 <template>
   <div
     class="streamfield-embed"
-    :class="[{ youtube: isYoutube }]"
-    v-html="props.code"
+    :class="[{ youtube: isYoutube }, { googleMaps: isGoogleMaps }]"
+    v-html="embedCode"
   />
 </template>
 
@@ -28,16 +35,27 @@ const isYoutube = ref(props.code.includes('https://www.youtube.com/embed'))
       height: 100% !important;
     }
   }
+  &.googleMaps {
+    iframe {
+      width: 100% !important;
+    }
+  }
   .twitter-tweet {
     max-width: 100% !important;
-    @include media('<lg') {
-      justify-content: center;
-    }
+    justify-content: center;
     iframe {
       width: 550px !important;
       max-width: 100% !important;
       flex-grow: unset !important;
     }
+  }
+  .instagram-media {
+    max-width: 100% !important;
+    justify-content: center;
+    margin: auto !important;
+    width: 550px !important;
+    max-width: 100% !important;
+    flex-grow: unset !important;
   }
 }
 </style>

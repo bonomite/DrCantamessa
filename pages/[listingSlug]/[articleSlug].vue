@@ -35,7 +35,7 @@ const embed = story.value.content.embedcode
     <section class="article-page">
       <div class="content">
         <div class="grid">
-          <div class="col-12 md:col-7">
+          <div class="col-12 lg:col-7">
             <EmbedComp v-if="embed" :code="embed" class="embed" />
             <video v-else-if="video" controls autoplay muted class="video">
               <source :src="video.filename" type="video/mp4" />
@@ -47,7 +47,7 @@ const embed = story.value.content.embedcode
               class="poster"
             />
           </div>
-          <div class="col-12 md:col-5 flex flex-column justify-content-between">
+          <div class="col-12 lg:col-5 flex flex-column justify-content-between">
             <div>
               <h1 class="text-primary">{{ story.content.title }}</h1>
               <p v-if="patientName" class="p-small">
