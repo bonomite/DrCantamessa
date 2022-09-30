@@ -27,7 +27,7 @@ const shareItems = ref([
     command: () => {
       var twitterShare = document.getElementsByClassName('twitterShareRef')
       twitterShare[0].click()
-      console.log('twitter= ', twitterShare[0])
+      //console.log('twitter= ', twitterShare[0])
       //gaEvent('Click Tracking', 'Episode Share Tools', 'Twitter')
     },
   },
@@ -35,7 +35,7 @@ const shareItems = ref([
     label: 'Facebook',
     icon: 'pi pi-facebook',
     command: () => {
-      console.log('facebook')
+      //console.log('facebook')
       var facebookShare = document.getElementsByClassName('facebookShareRef')
       facebookShare[0].click()
       //gaEvent('Click Tracking', 'Episode Share Tools', 'Facebook')
@@ -45,7 +45,7 @@ const shareItems = ref([
     label: 'Email',
     icon: 'pi pi-envelope',
     command: () => {
-      console.log('email')
+      //console.log('email')
       var emailShare = document.getElementsByClassName('emailShareRef')
       emailShare[0].click()
       //gaEvent('Click Tracking', 'Episode Share Tools', 'Email')

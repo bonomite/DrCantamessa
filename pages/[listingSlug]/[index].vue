@@ -1,7 +1,7 @@
 <script setup>
 const route = useRoute()
 const story = await useAsyncStoryblok(route.fullPath, { version: 'published' })
-console.log('story = ', story)
+//console.log('story = ', story)
 
 const title = story.value.content.title
 const info = computed(() => renderRichText(story.value.content.info))

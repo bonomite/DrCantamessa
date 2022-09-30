@@ -22,7 +22,7 @@ const {
   { key: `articles-${folderName}` }
 )
 
-console.log('articles = ', articles.value)
+//console.log('articles = ', articles.value)
 </script>
 
 <template>

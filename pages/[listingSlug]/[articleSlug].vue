@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { formatDate } from '~/utilities/helpers.js'
 const route = useRoute()
 const story = await useAsyncStoryblok(route.fullPath, { version: 'published' })
-console.log('story = ', story.value)
+//console.log('story = ', story.value)
 const description = computed(() =>
   renderRichText(story.value.content.description)
 )

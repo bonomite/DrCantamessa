@@ -12,7 +12,7 @@ const year = new Date().getFullYear()
 // const closeSidebar = () => (sidebarOpen.value = false)
 
 globalMenuData.value = await getMenuData()
-console.log('globalMenuData = ', globalMenuData.value)
+//console.log('globalMenuData = ', globalMenuData.value)
 onMounted(() => {})
 </script>
 
