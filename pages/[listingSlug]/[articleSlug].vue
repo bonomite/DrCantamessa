@@ -24,7 +24,7 @@ const embed = story.value.content.embedcode
 //   `${config.STORYBLOK_API_URL}/stories/${route.fullPath}?token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`
 // )
 
-//console.log('articles = ', articles)
+console.log('story = ', story)
 </script>
 
 <template>
@@ -48,7 +48,13 @@ const embed = story.value.content.embedcode
         <div class="grid">
           <div class="col-12 lg:col-7">
             <EmbedComp v-if="embed" :code="embed" class="embed" />
-            <video v-else-if="video" controls autoplay muted class="video">
+            <video
+              v-else-if="video.filename"
+              controls
+              autoplay
+              muted
+              class="video"
+            >
               <source :src="video.filename" type="video/mp4" />
             </video>
             <sb-image v-else :src="poster" size="786x442" class="poster" />

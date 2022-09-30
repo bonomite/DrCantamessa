@@ -22,15 +22,22 @@ const {
   { key: `articles-${folderName}` }
 )
 
-//console.log('articles = ', articles.value)
+//console.log('articles = ', articles.value.stories[0]?.parent_id)
+const showFolderContent = computed(() => {
+  return articles.value.stories[0]?.parent_id
+})
 </script>
 
 <template>
-  <div class="folder-preview mb-8" v-if="articles.stories.length > 1">
-    <div v-if="pending">LOADING!!!!!!!!!!!!!</div>
+  <div class="folder-preview mb-8" v-if="showFolderContent">
+    <div v-if="pending">LOADING...</div>
     <div v-else>
       <div class="flex justify-content-between align-items-end">
-        <h3 class="uppercase" style="line-height: 0.75rem">{{ folderName }}</h3>
+        <nuxt-link :to="`/${folderName}`" class="no-underline">
+          <p class="uppercase text-2xl" style="line-height: 0.75rem">
+            {{ folderName }}
+          </p>
+        </nuxt-link>
         <nuxt-link :to="`/${folderName}`">
           <Button class="p-button-sm">See all</Button>
         </nuxt-link>
@@ -48,7 +55,7 @@ const {
                 <sb-image :src="article.content.poster" size="443x222" />
               </nuxt-link>
               <nuxt-link class="overlay-title" :to="article.full_slug">
-                <h3>{{ article.name }}</h3>
+                <h4 class="title">{{ article.name }}</h4>
               </nuxt-link>
             </div>
           </div>
@@ -88,6 +95,11 @@ const {
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00471f61', endColorstr='#471f61',GradientType=0 );
       * {
         color: #ffffff;
+      }
+      .title {
+        @include media('<xl') {
+          font-size: 1.25em;
+        }
       }
     }
   }
