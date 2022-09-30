@@ -1,8 +1,7 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { ShareNetwork } from 'vue-social-sharing'
-import { copyToClipBoard, shareAPI, isMobileBrowser } from '~/utilities/helpers'
-import { useToast } from 'primevue/usetoast'
+import { ref, onMounted } from 'vue'
+//import { ShareNetwork } from 'vue-social-sharing'
+import { shareAPI, isMobileBrowser } from '~/utilities/helpers'
 
 const config = useRuntimeConfig()
 const props = defineProps({
@@ -27,7 +26,7 @@ const shareItems = ref([
     command: () => {
       var twitterShare = document.getElementsByClassName('twitterShareRef')
       twitterShare[0].click()
-      //console.log('twitter= ', twitterShare[0])
+      console.log('twitter= ', twitterShare[0])
       //gaEvent('Click Tracking', 'Episode Share Tools', 'Twitter')
     },
   },
@@ -105,34 +104,36 @@ onMounted(() => {})
         class="episode-tools-menu"
       />
       <div class="hidden">
-        <ShareNetwork
-          class="facebookShareRef"
-          network="facebook"
-          :url="url"
-          :title="title"
-          :description="desc"
-          :hashtags="tags.join()"
-          >Share on Facebook</ShareNetwork
-        >
-        <ShareNetwork
-          class="twitterShareRef"
-          network="twitter"
-          :url="url"
-          :title="title"
-          :description="desc"
-          :hashtags="tags.join()"
-          twitter-user="drcantamessa"
-          >Share on Twitter</ShareNetwork
-        >
-        <ShareNetwork
-          class="emailShareRef"
-          network="email"
-          :url="url"
-          :title="title"
-          :description="desc"
-          :hashtags="tags.join()"
-          >Share on Email</ShareNetwork
-        >
+        <client-only>
+          <ShareNetwork
+            class="facebookShareRef"
+            network="facebook"
+            :url="url"
+            :title="title"
+            :description="desc"
+            :hashtags="tags.join()"
+            >Share on Facebook</ShareNetwork
+          >
+          <ShareNetwork
+            class="twitterShareRef"
+            network="twitter"
+            :url="url"
+            :title="title"
+            :description="desc"
+            :hashtags="tags.join()"
+            twitter-user="drcantamessa"
+            >Share on Twitter</ShareNetwork
+          >
+          <ShareNetwork
+            class="emailShareRef"
+            network="email"
+            :url="url"
+            :title="title"
+            :description="desc"
+            :hashtags="tags.join()"
+            >Share on Email</ShareNetwork
+          >
+        </client-only>
       </div>
     </div>
   </div>

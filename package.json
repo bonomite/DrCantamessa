@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^9.2.0",
-    "mosha-vue-toastify": "^1.0.23",
+    "npm": "^8.19.2",
     "primeicons": "^5.0.0",
     "primevue": "^3.17.0",
     "primevue-designer": "github:bonomite/design-system",

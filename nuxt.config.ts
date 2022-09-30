@@ -1,16 +1,30 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-    modules: [['@storyblok/nuxt', {
+    modules: [
+        ['@storyblok/nuxt', {
+            accessToken: process.env.STORYBLOK_API_KEY_PREVIEW,
+            apiOptions: {
+                region: 'us',
+                //bridge: true,
+                //useApiClient: true
+            }
+        }],
+    ],
+    //, 'vue-social-sharing/nuxt', 'mosha-vue-toastify'],
+    //accessToken: process.env.STORYBLOK_API_KEY_PREVIEW,
+    // apiOptions: {
+    //     region: 'us',
+    //     //bridge: true,
+    //     //useApiClient: true
+    // }
+    //buildModules: ['vue-social-sharing'],
+    storyblok: {
         accessToken: process.env.STORYBLOK_API_KEY_PREVIEW,
         apiOptions: {
             region: 'us',
             //bridge: true,
             //useApiClient: true
         }
-    }, 'vue-social-sharing/nuxt', 'mosha-vue-toastify']],
-    image: {
-
-
     },
     build: {
         transpile: [
@@ -21,7 +35,6 @@ export default defineNuxtConfig({
         'primevue-designer/src/assets/themes/drcantamessa/viva-light/drcantamessa.min.css',
         'primevue/resources/primevue.min.css',
         'primeicons/primeicons.css',
-        'mosha-vue-toastify/dist/style.css',
     ],
     vite: {
         css: {

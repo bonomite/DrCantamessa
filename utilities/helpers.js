@@ -1,4 +1,4 @@
-import { createToast } from 'mosha-vue-toastify'
+//import { createToast } from 'mosha-vue-toastify'
 // global function for getting and overridding toast notification configuation 
 export const toastGlobalConfig = (optionsObj = {}) => {
 
@@ -35,11 +35,13 @@ export function isMobileBrowser() {
 export const copyToClipBoard = async (content, msg) => {
     await navigator.clipboard.writeText(content)
         .then(() => {
-            createToast(msg ? msg : 'Copied to the clipboard', toastConfig)
+            //createToast(msg ? msg : 'Copied to the clipboard', toastConfig)
+            alert(msg ? msg : 'Copied to the clipboard')
         })
         .catch(() => {
             //(err)
-            createToast({ title: 'Copy to clipboard failed', description: 'Try again another time' }, toastConfigDanger)
+            //createToast({ title: 'Copy to clipboard failed', description: 'Try again another time' }, toastConfigDanger)
+            alert('Copy to clipboard failed')
         })
 }
 
