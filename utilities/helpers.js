@@ -1,4 +1,4 @@
-//import { createToast } from 'mosha-vue-toastify'
+
 // global function for getting and overridding toast notification configuation 
 export const toastGlobalConfig = (optionsObj = {}) => {
 

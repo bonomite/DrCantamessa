@@ -1,5 +1,5 @@
 <script setup>
-import { watch, computed, onMounted, onBeforeMount } from 'vue'
+import { watch, computed, onMounted } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
 import breakpoint from 'primevue-designer/src/assets/themes/drcantamessa/viva-light/breakpoints.module.scss'
 const currentBreakpoint = useCurrentBreakpoint()
@@ -46,4 +46,6 @@ watch([isXs, isSm, isMd, isLg, isXl, isXxl, isXxxl], () => {
 
 <template>
   <!-- <div class="breakpoints" v-if="isMounted">size = {{ getResponsiveSize }}</div> -->
+  <!-- needed empty div -->
+  <div></div>
 </template>
