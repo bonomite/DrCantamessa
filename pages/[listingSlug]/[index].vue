@@ -11,15 +11,12 @@ const poster = story.value.content.poster
 
 <template>
   <section class="index-page">
-    LISTING SLUG INDEX
-    <nuxt-link to="/">home</nuxt-link>
-    <!--     <sb-image :src="poster" size="50x150" class="small" />
     <sb-image :src="poster" />
-    <sb-image :src="poster" greyscale /> -->
     <div class="content">
-      <h1>title = {{ title }}</h1>
+      <h1 class="mb-2">{{ title }}</h1>
       <div v-html="info" />
       <StoryblokComponent v-if="story" :blok="story.content" />
+      <FolderPreview :to="route.fullPath" noHeader class="mt-6" />
     </div>
   </section>
 </template>

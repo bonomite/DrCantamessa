@@ -15,7 +15,7 @@ const globalMenuData = useMenuData()
   <div>
     <section class="about-me-page">
       <div class="content">
-        <h1>{{ story.content.title }}</h1>
+        <h1 class="mb-4">{{ story.content.title }}</h1>
         <StoryblokComponent v-if="story" :blok="story.content" />
       </div>
     </section>

@@ -7,6 +7,10 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  noHeader: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 // remove the initial "/"
@@ -32,7 +36,10 @@ const showFolderContent = computed(() => {
   <div class="folder-preview mb-8" v-if="showFolderContent">
     <div v-if="pending">LOADING...</div>
     <div v-else>
-      <div class="flex justify-content-between align-items-end">
+      <div
+        v-if="!noHeader"
+        class="flex justify-content-between align-items-end"
+      >
         <nuxt-link :to="`/${folderName}`" class="no-underline">
           <p class="uppercase text-2xl" style="line-height: 0.75rem">
             {{ folderName }}
@@ -41,8 +48,8 @@ const showFolderContent = computed(() => {
         <nuxt-link :to="`/${folderName}`">
           <Button class="p-button-sm">See all</Button>
         </nuxt-link>
+        <Divider v-if="!noHeader" class="block mb-5" />
       </div>
-      <Divider class="block mb-5" />
       <div class="grid">
         <template
           class=""

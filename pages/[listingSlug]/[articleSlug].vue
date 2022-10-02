@@ -46,7 +46,7 @@ console.log('story = ', story)
     <section class="article-page">
       <div class="content">
         <div class="grid">
-          <div class="col-12 lg:col-7">
+          <div class="col-12 lg:col-6">
             <EmbedComp v-if="embed" :code="embed" class="embed" />
             <video
               v-else-if="video.filename"
@@ -59,7 +59,7 @@ console.log('story = ', story)
             </video>
             <sb-image v-else :src="poster" size="786x442" class="poster" />
           </div>
-          <div class="col-12 lg:col-5 flex flex-column justify-content-between">
+          <div class="col-12 lg:col-6 flex flex-column justify-content-between">
             <div>
               <!-- <ArticleSocialShare :story="story" class="text-right" /> -->
               <h1 class="text-primary mb-2">
