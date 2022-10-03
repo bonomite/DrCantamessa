@@ -48,8 +48,8 @@ const showFolderContent = computed(() => {
         <nuxt-link :to="`/${folderName}`">
           <Button class="p-button-sm">See all</Button>
         </nuxt-link>
-        <Divider v-if="!noHeader" class="block mb-5" />
       </div>
+      <Divider v-if="!noHeader" class="block mb-5" />
       <div class="grid">
         <template
           class=""
