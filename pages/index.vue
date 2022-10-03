@@ -21,7 +21,7 @@ console.log('globalMenuData  = ', globalMenuData.value)
           v-for="(folder, index) in globalMenuData"
           :key="`folderPreview-${index}`"
         >
-          <FolderPreview :to="folder.to" class="mt-6" />
+          <FolderPreview :to="folder.to" limit="3" class="mt-6" />
         </template>
       </div>
     </section>

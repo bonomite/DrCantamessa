@@ -11,6 +11,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  limit: {
+    type: String,
+    default: '100',
+  },
 })
 
 // remove the initial "/"
@@ -22,11 +26,15 @@ const {
   error,
   refresh,
 } = await useFetch(
-  `${config.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0&per_page=3&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
+  `${
+    config.STORYBLOK_API_URL
+  }/stories?starts_with=${folderName}&is_startpage=0${
+    props.limit ? `&per_page=${props.limit}` : ''
+  } &token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
   { key: `articles-${folderName}` }
 )
 
-//console.log('articles = ', articles.value.stories[0]?.parent_id)
+console.log('articles = ', articles.value)
 const showFolderContent = computed(() => {
   return articles.value.stories[0]?.parent_id
 })
