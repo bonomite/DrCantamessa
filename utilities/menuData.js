@@ -19,15 +19,18 @@ export async function getMenuData() {
     let menuDataArr = []
 
     for (const [key, value] of Object.entries(linksData.value.links)) {
-        //console.log(value)
-        if (value.is_folder || (!value.parent_id && value.real_path !== '/')) {
-            menuDataArr.push({
-                label: value.name,
-                to: `/${value.slug}`,
-                command: () => {
-                    gaEvent('Click Tracking', 'Navigation', value.name)
-                }
-            })
+        //console.log('menu value - ', value)
+        // temp condition to clear folders from, menu
+        if (!value.slug === 'surgery' || !value.slug === 'enrichment') {
+            if (value.is_folder || (!value.parent_id && value.real_path !== '/')) {
+                menuDataArr.push({
+                    label: value.name,
+                    to: `/${value.slug}`,
+                    command: () => {
+                        gaEvent('Click Tracking', 'Navigation', value.name)
+                    }
+                })
+            }
         }
     }
 

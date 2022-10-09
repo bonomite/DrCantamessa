@@ -8,7 +8,7 @@ const globalMenuData = useMenuData()
 
 //console.log('story  = ', story.value)
 
-console.log('globalMenuData  = ', globalMenuData.value)
+//console.log('globalMenuData  = ', globalMenuData.value)
 </script>
 
 <template>

@@ -26,7 +26,7 @@ const shareItems = ref([
     command: () => {
       var twitterShare = document.getElementsByClassName('twitterShareRef')
       twitterShare[0].click()
-      console.log('twitter= ', twitterShare[0])
+      //console.log('twitter= ', twitterShare[0])
       //gaEvent('Click Tracking', 'Episode Share Tools', 'Twitter')
     },
   },
