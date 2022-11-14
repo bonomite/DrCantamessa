@@ -53,7 +53,7 @@ const bgImageUrl = `url(${bgImage.filename})`
       aspect-ratio: 1 / 1;
       border: 0.5rem solid var(--primary-color);
       box-shadow: 10px 10px 24px rgb(0 0 0 / 20%);
-      padding: 20px;
+      //padding: 20px;
     }
   }
 }

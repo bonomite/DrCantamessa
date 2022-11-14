@@ -114,7 +114,7 @@ onMounted(() => {})
               />
             </nuxt-link>
             <div class="name-social ml-3">
-              <h4>Dr. Tracey <span class="no-wrap">Cantamessa DVM</span></h4>
+              <h4>Tracey <span class="no-wrap">Cantamessa, DVM</span></h4>
               <div class="social-accounts flex gap-3 mt-2">
                 <a
                   href="https://www.facebook.com/drcantamessadvm"
@@ -148,7 +148,7 @@ onMounted(() => {})
             </div>
           </div>
           <p class="col-12 p-small text-center mt-4">
-            © {{ year }} Dr. Tracey Cantamessa DVM, All Rights reserved.
+            © {{ year }} Tracey Cantamessa, DVM, All Rights reserved.
           </p>
           <p class="col-12 p-small text-center">
             Site by: <a href="https://www.thomasbono.com">ThomasBono.com</a>

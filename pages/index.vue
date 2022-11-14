@@ -17,12 +17,12 @@ const globalMenuData = useMenuData()
       <div class="content">
         <StoryblokComponent v-if="story" :blok="story.content" />
 
-        <template
+        <!-- <template
           v-for="(folder, index) in globalMenuData"
           :key="`folderPreview-${index}`"
         >
           <FolderPreview :to="folder.to" limit="3" class="mt-6" />
-        </template>
+        </template> -->
       </div>
     </section>
   </div>

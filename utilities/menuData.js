@@ -17,11 +17,11 @@ export async function getMenuData() {
     //console.log('menuData = ', linksData.value.links)
 
     let menuDataArr = []
-
+    const foldersToSkipArr = ['surgery', 'enrichment', 'articles']
     for (const [key, value] of Object.entries(linksData.value.links)) {
-        //console.log('menu value - ', value)
+        console.log('menu value - ', value)
         // temp condition to clear folders from, menu
-        if (!value.slug === 'surgery' || !value.slug === 'enrichment') {
+        if (!foldersToSkipArr.includes(value.slug)) {
             if (value.is_folder || (!value.parent_id && value.real_path !== '/')) {
                 menuDataArr.push({
                     label: value.name,
