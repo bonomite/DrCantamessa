@@ -19,6 +19,7 @@ const props = defineProps({
 
 // remove the initial "/"
 const folderName = props.to.replace(/^\/|\/$/g, '')
+console.log('folderName = ', folderName)
 
 const {
   data: articles,
@@ -34,7 +35,7 @@ const {
   { key: `articles-${folderName}` }
 )
 
-//console.log('articles = ', articles.value)
+console.log('articles = ', articles.value)
 const showFolderContent = computed(() => {
   return articles.value.stories[0]?.parent_id
 })
