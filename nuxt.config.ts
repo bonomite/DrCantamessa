@@ -61,13 +61,15 @@ export default defineNuxtConfig({
         },
     },
     components: true,
-    publicRuntimeConfig: {
-        BASE_URL: process.env['BASE_URL'],
-        STORYBLOK_API_KEY_PREVIEW: process.env['STORYBLOK_API_KEY_PREVIEW'],
-        STORYBLOK_API_KEY_PUBLIC: process.env['STORYBLOK_API_KEY_PUBLIC'],
-        STORYBLOK_SPACE_ID: process.env['STORYBLOK_SPACE_ID'],
-        STORYBLOK_OAUTH_TOKEN: process.env['STORYBLOK_OAUTH_TOKEN'],
-        STORYBLOK_API_URL: process.env['STORYBLOK_API_URL'],
-        STORYBLOK_API_URL_V1: process.env['STORYBLOK_API_URL_V1'],
+    runtimeConfig: {
+        public: {
+            BASE_URL: process.env['BASE_URL'],
+            STORYBLOK_API_KEY_PREVIEW: process.env['STORYBLOK_API_KEY_PREVIEW'],
+            STORYBLOK_API_KEY_PUBLIC: process.env['STORYBLOK_API_KEY_PUBLIC'],
+            STORYBLOK_SPACE_ID: process.env['STORYBLOK_SPACE_ID'],
+            STORYBLOK_OAUTH_TOKEN: process.env['STORYBLOK_OAUTH_TOKEN'],
+            STORYBLOK_API_URL: process.env['STORYBLOK_API_URL'],
+            STORYBLOK_API_URL_V1: process.env['STORYBLOK_API_URL_V1'],
+        }
     },
 })

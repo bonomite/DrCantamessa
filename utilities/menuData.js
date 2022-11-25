@@ -13,13 +13,12 @@ export async function getMenuData() {
         `${config.STORYBLOK_API_URL}/links/?token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`
     )
 
-
-    //console.log('menuData = ', linksData.value.links)
+    //console.log('menuData = ', linksData)
 
     let menuDataArr = []
     const foldersToSkipArr = ['surgery', 'enrichment', 'articles']
     for (const [key, value] of Object.entries(linksData.value.links)) {
-        console.log('menu value - ', value)
+        //console.log('menu value - ', value)
         // temp condition to clear folders from, menu
         if (!foldersToSkipArr.includes(value.slug)) {
             if (value.is_folder || (!value.parent_id && value.real_path !== '/')) {
