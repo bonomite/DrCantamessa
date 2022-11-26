@@ -1,8 +1,5 @@
 <script setup>
 //import { ref, computed, onMounted } from 'vue'
-import breakpoint from 'primevue-designer/src/assets/themes/drcantamessa/viva-light/breakpoints.module.scss'
-import { formatDate } from '~/utilities/helpers.js'
-const currentBreakpoint = useCurrentBreakpoint()
 const config = useRuntimeConfig()
 const props = defineProps({
   to: {
@@ -37,22 +34,9 @@ const {
   { key: `articles-${folderName}` }
 )
 
-console.log('articles = ', articles.value)
+//console.log('articles = ', articles.value)
 const showFolderContent = computed(() => {
   return articles.value.stories[0]?.parent_id
-})
-
-const getSize = computed(() => {
-  let size = '442x248'
-  if (
-    currentBreakpoint.value &&
-    Number(currentBreakpoint.value) < Number(breakpoint.lg)
-  ) {
-    size = '233x233'
-    return size
-  } else {
-    return size
-  }
 })
 </script>
 
@@ -80,30 +64,18 @@ const getSize = computed(() => {
           v-for="(article, index) in articles.stories"
           :key="`preview-${article.name}`"
         >
-          <div
-            class="col-12 md:col-10 md:col-offset-1 lg:col-8 lg:col-offset-2"
-          >
-            <div class="article-card flex flex-row relative grid">
-              <nuxt-link :to="article.full_slug" class="col-4">
-                <sb-image :src="article.content.poster" :size="getSize" />
-              </nuxt-link>
-              <div class="info col-8 flex flex-column justify-content-between">
-                <div>
-                  <nuxt-link class="title-link" :to="article.full_slug">
-                    <h5 class="title">{{ article.name }}</h5>
-                  </nuxt-link>
-                  <div
-                    class="truncate t2lines"
-                    v-html="renderRichText(article.content.description)"
-                  ></div>
-                </div>
-                <div>
-                  <p class="date">
-                    Published {{ formatDate(article.first_published_at) }}
-                  </p>
-                </div>
-              </div>
+          <!-- featured article -->
+          <div v-if="index === 0">
+            <div class="col-12">
+              <ArticleCard :article="article" featured />
             </div>
+          </div>
+          <!-- articles -->
+          <div
+            v-else
+            class="col-12 lg:col-10 lg:col-offset-1 xl:col-8 xl:col-offset-2"
+          >
+            <ArticleCard :article="article" />
           </div>
         </template>
       </div>
@@ -113,21 +85,5 @@ const getSize = computed(() => {
 
 <style lang="scss">
 .article-listing {
-  .article-card {
-    .title-link {
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-      .title {
-        @include media('<xl') {
-          font-size: 1.25em;
-        }
-      }
-    }
-    .date {
-      font-size: 0.75rem;
-    }
-  }
 }
 </style>

@@ -22,7 +22,7 @@ const globalMenuData = useMenuData()
         >
           <FolderPreview :to="folder.to" limit="3" class="mt-6" />
         </template> -->
-        <ArticleListing to="articles" limit="3" class="mt-6" />
+        <ArticleListing to="articles" limit="3" class="mt-6 md:mt-8" />
       </div>
     </section>
   </div>
