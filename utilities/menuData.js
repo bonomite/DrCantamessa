@@ -16,7 +16,7 @@ export async function getMenuData() {
     //console.log('menuData = ', linksData)
 
     let menuDataArr = []
-    const foldersToSkipArr = ['surgery', 'enrichment']
+    const foldersToSkipArr = ['surgery', 'enrichment', 'articles']
     for (const [key, value] of Object.entries(linksData.value.links)) {
         //console.log('menu value - ', value)
         // temp condition to clear folders from, menu

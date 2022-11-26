@@ -8,7 +8,7 @@ const globalMenuData = useMenuData()
 
 //console.log('story  = ', story.value)
 
-console.log('globalMenuData  = ', globalMenuData.value)
+//console.log('globalMenuData  = ', globalMenuData.value)
 </script>
 
 <template>
@@ -16,13 +16,13 @@ console.log('globalMenuData  = ', globalMenuData.value)
     <section class="home-page">
       <div class="content">
         <StoryblokComponent v-if="story" :blok="story.content" />
-        <template
+        <!-- <template
           v-for="(folder, index) in globalMenuData"
           :key="`folderPreview-${index}`"
         >
-          {{ folder }}
           <FolderPreview :to="folder.to" limit="3" class="mt-6" />
-        </template>
+        </template> -->
+        <ArticleListing to="articles" limit="3" class="mt-6" />
       </div>
     </section>
   </div>

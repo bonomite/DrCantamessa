@@ -1,6 +1,8 @@
 <script setup>
 //import { ref, computed, onMounted } from 'vue'
-
+import breakpoint from 'primevue-designer/src/assets/themes/drcantamessa/viva-light/breakpoints.module.scss'
+import { formatDate } from '~/utilities/helpers.js'
+const currentBreakpoint = useCurrentBreakpoint()
 const config = useRuntimeConfig()
 const props = defineProps({
   to: {
@@ -9,7 +11,7 @@ const props = defineProps({
   },
   noHeader: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   limit: {
     type: String,
@@ -19,7 +21,7 @@ const props = defineProps({
 
 // remove the initial "/"
 const folderName = props.to.replace(/^\/|\/$/g, '')
-console.log('folderName = ', folderName)
+//console.log('folderName = ', folderName)
 
 const {
   data: articles,
@@ -35,14 +37,27 @@ const {
   { key: `articles-${folderName}` }
 )
 
-//console.log('articles = ', articles.value)
+console.log('articles = ', articles.value)
 const showFolderContent = computed(() => {
   return articles.value.stories[0]?.parent_id
+})
+
+const getSize = computed(() => {
+  let size = '442x248'
+  if (
+    currentBreakpoint.value &&
+    Number(currentBreakpoint.value) < Number(breakpoint.lg)
+  ) {
+    size = '233x233'
+    return size
+  } else {
+    return size
+  }
 })
 </script>
 
 <template>
-  <div class="folder-preview mb-8" v-if="showFolderContent">
+  <div class="article-listing mb-8" v-if="showFolderContent">
     <div v-if="pending">LOADING...</div>
     <div v-else>
       <div
@@ -65,14 +80,29 @@ const showFolderContent = computed(() => {
           v-for="(article, index) in articles.stories"
           :key="`preview-${article.name}`"
         >
-          <div class="col-12 md:col-4">
-            <div class="article-card flex flex-column relative">
-              <nuxt-link :to="article.full_slug">
-                <sb-image :src="article.content.poster" size="443x222" />
+          <div
+            class="col-12 md:col-10 md:col-offset-1 lg:col-8 lg:col-offset-2"
+          >
+            <div class="article-card flex flex-row relative grid">
+              <nuxt-link :to="article.full_slug" class="col-4">
+                <sb-image :src="article.content.poster" :size="getSize" />
               </nuxt-link>
-              <nuxt-link class="overlay-title" :to="article.full_slug">
-                <h4 class="title">{{ article.name }}</h4>
-              </nuxt-link>
+              <div class="info col-8 flex flex-column justify-content-between">
+                <div>
+                  <nuxt-link class="title-link" :to="article.full_slug">
+                    <h5 class="title">{{ article.name }}</h5>
+                  </nuxt-link>
+                  <div
+                    class="truncate t2lines"
+                    v-html="renderRichText(article.content.description)"
+                  ></div>
+                </div>
+                <div>
+                  <p class="date">
+                    Published {{ formatDate(article.first_published_at) }}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </template>
@@ -82,41 +112,21 @@ const showFolderContent = computed(() => {
 </template>
 
 <style lang="scss">
-.folder-preview {
+.article-listing {
   .article-card {
-    .overlay-title {
-      position: absolute;
-      bottom: 0;
-      padding: 1rem;
-      padding-top: 3rem;
-      width: 100%;
-      background: -moz-linear-gradient(
-        top,
-        rgba(71, 31, 97, 0) 0%,
-        rgba(71, 31, 97, 0.8) 58%,
-        rgba(71, 31, 97, 1) 100%
-      );
-      background: -webkit-linear-gradient(
-        top,
-        rgba(71, 31, 97, 0) 0%,
-        rgba(71, 31, 97, 0.8) 58%,
-        rgba(71, 31, 97, 1) 100%
-      );
-      background: linear-gradient(
-        to bottom,
-        rgba(71, 31, 97, 0) 0%,
-        rgba(71, 31, 97, 0.8) 58%,
-        rgba(71, 31, 97, 1) 100%
-      );
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00471f61', endColorstr='#471f61',GradientType=0 );
-      * {
-        color: #ffffff;
+    .title-link {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
       }
       .title {
         @include media('<xl') {
           font-size: 1.25em;
         }
       }
+    }
+    .date {
+      font-size: 0.75rem;
     }
   }
 }
