@@ -1,7 +1,5 @@
 <script setup>
 import { formatDate } from '~/utilities/helpers.js'
-import breakpoint from 'primevue-designer/src/assets/themes/drcantamessa/viva-light/breakpoints.module.scss'
-const currentBreakpoint = useCurrentBreakpoint()
 const props = defineProps({
   article: {
     type: Object,
@@ -13,13 +11,6 @@ const props = defineProps({
     default: false,
   },
 })
-
-console.log('breakpoint = ', breakpoint.md)
-console.log('currentBreakpoint = ', currentBreakpoint.value)
-console.log(
-  'Number(currentBreakpoint) < Number(breakpoint.md) = ',
-  Number(currentBreakpoint.value) < Number(breakpoint.md)
-)
 </script>
 
 <template>
@@ -30,19 +21,16 @@ console.log(
     >
       <nuxt-link
         :to="article.full_slug"
-        :class="props.featured ? 'col-12 lg:col-8' : 'col-4'"
+        :class="props.featured ? 'col-12 lg:col-8' : 'col-3'"
       >
-        <!-- <sb-image :src="article.content.poster" /> -->
-        <nuxt-img
+        <sb-image
+          :src="article.content.poster"
+          :size="props.featured ? '' : '215x215'"
+        />
+        <!-- <nuxt-img
           format="webp"
           width="16"
-          :height="
-            props.featured
-              ? '10'
-              : Number(currentBreakpoint) < Number(breakpoint.md)
-              ? '16'
-              : '10'
-          "
+          :height="props.featured ? '10' : '16'"
           :sizes="
             props.featured
               ? 'sm:326px md:703px lg:901px'
@@ -50,11 +38,11 @@ console.log(
           "
           :src="article.content.poster.filename"
           style="width: 100%; height: auto"
-        />
+        /> -->
       </nuxt-link>
       <div
         class="info flex flex-column justify-content-between"
-        :class="props.featured ? 'col-12 lg:col-4 p-5' : 'col-8'"
+        :class="props.featured ? 'col-12 lg:col-4 p-5' : 'col-9'"
       >
         <div>
           <nuxt-link class="title-link" :to="article.full_slug">
@@ -62,6 +50,7 @@ console.log(
           </nuxt-link>
           <div
             class="desc truncate"
+            :class="props.featured ? '' : 'hide-on-mobile'"
             v-html="renderRichText(article.content.description)"
           ></div>
         </div>
@@ -95,11 +84,19 @@ console.log(
     @include media('<md') {
       font-size: 0.85rem;
     }
+    &.hide-on-mobile {
+      @include media('<sm') {
+        display: none;
+      }
+    }
   }
   .date {
     padding-top: 1rem;
     font-size: 0.75rem;
     opacity: 0.65;
+    @include media('<sm') {
+      padding-top: 0.25rem;
+    }
   }
   &.featured {
     box-shadow: 0px 0px 24px rgb(0 0 0 / 20%);

@@ -19,6 +19,7 @@ const props = defineProps({
 // remove the initial "/"
 const folderName = props.to.replace(/^\/|\/$/g, '')
 //console.log('folderName = ', folderName)
+const loadedArticles = ref([])
 
 const {
   data: articles,
@@ -34,9 +35,30 @@ const {
   { key: `articles-${folderName}` }
 )
 
+loadedArticles.value = articles.value
+
+function loadMore() {
+  console.log('MORE')
+  // const {
+  //   data: articlesMore,
+  //   pendingMore,
+  //   error,
+  //   refresh,
+  // } = useFetch(
+  //   `${
+  //     config.STORYBLOK_API_URL
+  //   }/stories?starts_with=${folderName}&is_startpage=0${
+  //     props.limit ? `&per_page=${props.limit}` : ''
+  //   } &token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
+  //   { key: `articles-${folderName}` }
+  // )
+
+  // loadedArticles.value = articlesMore.value
+}
+
 //console.log('articles = ', articles.value)
 const showFolderContent = computed(() => {
-  return articles.value.stories[0]?.parent_id
+  return loadedArticles.value.stories[0]?.parent_id
 })
 </script>
 
@@ -58,10 +80,9 @@ const showFolderContent = computed(() => {
         </nuxt-link>
       </div>
       <Divider v-if="!noHeader" class="block mb-5" />
-      <div class="grid">
+      <div class="grid grid-nogutter">
         <template
-          class=""
-          v-for="(article, index) in articles.stories"
+          v-for="(article, index) in loadedArticles.stories"
           :key="`preview-${article.name}`"
         >
           <!-- featured article -->
@@ -78,6 +99,13 @@ const showFolderContent = computed(() => {
             <ArticleCard :article="article" />
           </div>
         </template>
+      </div>
+      <div class="flex justify-content-center" style="z-index: 2345234">
+        <Button
+          :icon="pendingMore ? 'pi pi-spin pi-spinner' : ''"
+          label="Load More"
+          @click="loadMore"
+        />
       </div>
     </div>
   </div>
