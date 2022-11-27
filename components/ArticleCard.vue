@@ -1,5 +1,7 @@
 <script setup>
 import { formatDate } from '~/utilities/helpers.js'
+import breakpoint from 'primevue-designer/src/assets/themes/drcantamessa/viva-light/breakpoints.module.scss'
+const currentBreakpoint = useCurrentBreakpoint()
 const props = defineProps({
   article: {
     type: Object,
@@ -11,6 +13,13 @@ const props = defineProps({
     default: false,
   },
 })
+
+console.log('breakpoint = ', breakpoint.md)
+console.log('currentBreakpoint = ', currentBreakpoint.value)
+console.log(
+  'Number(currentBreakpoint) < Number(breakpoint.md) = ',
+  Number(currentBreakpoint.value) < Number(breakpoint.md)
+)
 </script>
 
 <template>
@@ -23,7 +32,25 @@ const props = defineProps({
         :to="article.full_slug"
         :class="props.featured ? 'col-12 lg:col-8' : 'col-4'"
       >
-        <sb-image :src="article.content.poster" />
+        <!-- <sb-image :src="article.content.poster" /> -->
+        <nuxt-img
+          format="webp"
+          width="16"
+          :height="
+            props.featured
+              ? '10'
+              : Number(currentBreakpoint) < Number(breakpoint.md)
+              ? '16'
+              : '10'
+          "
+          :sizes="
+            props.featured
+              ? 'sm:326px md:703px lg:901px'
+              : 'sm:116px md:186px lg:224px xl:290'
+          "
+          :src="article.content.poster.filename"
+          style="width: 100%; height: auto"
+        />
       </nuxt-link>
       <div
         class="info flex flex-column justify-content-between"
