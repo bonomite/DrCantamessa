@@ -9,14 +9,14 @@ export default defineNuxtConfig({
                 //useApiClient: true
             }
         }],
-        '@nuxt/image-edge',
+        //'@nuxt/image-edge',
     ],
-    image: {
-        provider: 'storyblok',
-        storyblok: {
-            baseURL: 'https://a-us.storyblok.com'
-        }
-    },
+    // image: {
+    //     provider: 'storyblok',
+    //     storyblok: {
+    //         baseURL: 'https://a-us.storyblok.com'
+    //     }
+    // },
     //, 'vue-social-sharing/nuxt', 'mosha-vue-toastify'],
     //accessToken: process.env.STORYBLOK_API_KEY_PREVIEW,
     // apiOptions: {
@@ -32,7 +32,7 @@ export default defineNuxtConfig({
             //bridge: true,
             //useApiClient: true
         },
-        baseURL: 'https://a-us.storyblok.com'
+        //baseURL: 'https://a-us.storyblok.com'
     },
     build: {
         transpile: [

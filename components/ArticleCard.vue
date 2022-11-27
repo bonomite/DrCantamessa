@@ -11,6 +11,10 @@ const props = defineProps({
     default: false,
   },
 })
+console.log(
+  'article.content.description.content = ',
+  props.article.content.description.content[0].content[0].text
+)
 </script>
 
 <template>
@@ -51,8 +55,9 @@ const props = defineProps({
           <div
             class="desc truncate"
             :class="props.featured ? '' : 'hide-on-mobile'"
-            v-html="renderRichText(article.content.description)"
-          ></div>
+          >
+            {{ props.article.content.description.content[0].content[0].text }}
+          </div>
         </div>
         <div class="date">
           <p>Published: {{ formatDate(article.first_published_at) }}</p>

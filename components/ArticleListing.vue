@@ -12,9 +12,12 @@ const props = defineProps({
   },
   limit: {
     type: String,
-    default: '100',
+    default: '2',
   },
 })
+
+const first = ref(0)
+const totalRecords = ref(null)
 
 // remove the initial "/"
 const folderName = props.to.replace(/^\/|\/$/g, '')
@@ -27,34 +30,33 @@ const {
   error,
   refresh,
 } = await useFetch(
-  `${
-    config.STORYBLOK_API_URL
-  }/stories?starts_with=${folderName}&is_startpage=0${
-    props.limit ? `&per_page=${props.limit}` : ''
-  } &token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
+  `${config.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
   { key: `articles-${folderName}` }
 )
+console.log('articles.value = ', articles.value.stories.length)
+totalRecords.value = Number(articles.value.stories.length)
 
-loadedArticles.value = articles.value
+const loadMore = async (event = { page: 0 }) => {
+  //console.log('MORE = ', event)
+  const {
+    data: moreArticles,
+    morePending,
+    error,
+    refresh,
+  } = await useFetch(
+    `${
+      config.STORYBLOK_API_URL
+    }/stories?starts_with=${folderName}&is_startpage=0${
+      props.limit ? `&per_page=${props.limit}` : ''
+    }&page=${event.page + 1}&token=${
+      config.STORYBLOK_API_KEY_PREVIEW
+    }&version=published`,
+    { key: `articles-${folderName}-${event.page + 1}` }
+  )
 
-function loadMore() {
-  console.log('MORE')
-  // const {
-  //   data: articlesMore,
-  //   pendingMore,
-  //   error,
-  //   refresh,
-  // } = useFetch(
-  //   `${
-  //     config.STORYBLOK_API_URL
-  //   }/stories?starts_with=${folderName}&is_startpage=0${
-  //     props.limit ? `&per_page=${props.limit}` : ''
-  //   } &token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
-  //   { key: `articles-${folderName}` }
-  // )
-
-  // loadedArticles.value = articlesMore.value
+  loadedArticles.value = moreArticles.value
 }
+loadMore()
 
 //console.log('articles = ', articles.value)
 const showFolderContent = computed(() => {
@@ -86,7 +88,7 @@ const showFolderContent = computed(() => {
           :key="`preview-${article.name}`"
         >
           <!-- featured article -->
-          <div v-if="index === 0">
+          <div v-if="index === 0 && first === 0">
             <div class="col-12">
               <ArticleCard :article="article" featured />
             </div>
@@ -100,13 +102,21 @@ const showFolderContent = computed(() => {
           </div>
         </template>
       </div>
-      <div class="flex justify-content-center" style="z-index: 2345234">
-        <Button
-          :icon="pendingMore ? 'pi pi-spin pi-spinner' : ''"
-          label="Load More"
-          @click="loadMore"
-        />
-      </div>
+
+      <Paginator
+        v-model:first="first"
+        :rows="1"
+        :totalRecords="totalRecords / Number(props.limit)"
+        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+        @page="loadMore($event)"
+      >
+        <!--         <template #start>
+          <Button type="button" icon="pi pi-refresh" @click="reset()" />
+        </template>
+        <template #end>
+          <Button type="button" icon="pi pi-search" />
+        </template> -->
+      </Paginator>
     </div>
   </div>
 </template>
