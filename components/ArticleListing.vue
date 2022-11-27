@@ -12,7 +12,7 @@ const props = defineProps({
   },
   limit: {
     type: String,
-    default: '2',
+    default: '5',
   },
 })
 
@@ -33,8 +33,7 @@ const {
   `${config.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
   { key: `articles-${folderName}` }
 )
-console.log('articles.value = ', articles.value.stories.length)
-totalRecords.value = Number(articles.value.stories.length)
+totalRecords.value = Number(articles.value.stories.length / Number(props.limit))
 
 const loadMore = async (event = { page: 0 }) => {
   //console.log('MORE = ', event)
@@ -104,9 +103,10 @@ const showFolderContent = computed(() => {
       </div>
 
       <Paginator
+        v-if="totalRecords > 1"
         v-model:first="first"
         :rows="1"
-        :totalRecords="totalRecords / Number(props.limit)"
+        :totalRecords="totalRecords"
         template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
         @page="loadMore($event)"
       >
