@@ -12,7 +12,7 @@ const props = defineProps({
   },
   limit: {
     type: String,
-    default: '5',
+    default: '2',
   },
 })
 
@@ -101,7 +101,6 @@ const showFolderContent = computed(() => {
           </div>
         </template>
       </div>
-
       <Paginator
         v-if="totalRecords > 1"
         v-model:first="first"

@@ -11,10 +11,8 @@ const props = defineProps({
     default: false,
   },
 })
-console.log(
-  'article.content.description.content = ',
-  props.article.content.description.content[0].content[0].text
-)
+
+const desc = computed(() => renderRichText(props.article.content.description))
 </script>
 
 <template>
@@ -55,9 +53,10 @@ console.log(
           <div
             class="desc truncate"
             :class="props.featured ? '' : 'hide-on-mobile'"
-          >
-            {{ props.article.content.description.content[0].content[0].text }}
-          </div>
+            v-html="desc"
+          />
+          <!-- {{ props.article.content.description.content[0].content[0].text }} -->
+          <!-- </div> -->
         </div>
         <div class="date">
           <p>Published: {{ formatDate(article.first_published_at) }}</p>
