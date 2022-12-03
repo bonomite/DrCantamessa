@@ -16,13 +16,13 @@ const globalMenuData = useMenuData()
     <section class="home-page">
       <div class="content">
         <StoryblokComponent v-if="story" :blok="story.content" />
-
-        <template
+        <!-- <template
           v-for="(folder, index) in globalMenuData"
           :key="`folderPreview-${index}`"
         >
           <FolderPreview :to="folder.to" limit="3" class="mt-6" />
-        </template>
+        </template> -->
+        <ArticleListing to="articles" class="mt-6 md:mt-8" />
       </div>
     </section>
   </div>

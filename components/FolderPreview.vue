@@ -19,6 +19,7 @@ const props = defineProps({
 
 // remove the initial "/"
 const folderName = props.to.replace(/^\/|\/$/g, '')
+console.log('folderName = ', folderName)
 
 const {
   data: articles,

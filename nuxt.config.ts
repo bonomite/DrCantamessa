@@ -9,7 +9,14 @@ export default defineNuxtConfig({
                 //useApiClient: true
             }
         }],
+        //'@nuxt/image-edge',
     ],
+    // image: {
+    //     provider: 'storyblok',
+    //     storyblok: {
+    //         baseURL: 'https://a-us.storyblok.com'
+    //     }
+    // },
     //, 'vue-social-sharing/nuxt', 'mosha-vue-toastify'],
     //accessToken: process.env.STORYBLOK_API_KEY_PREVIEW,
     // apiOptions: {
@@ -24,7 +31,8 @@ export default defineNuxtConfig({
             region: 'us',
             //bridge: true,
             //useApiClient: true
-        }
+        },
+        //baseURL: 'https://a-us.storyblok.com'
     },
     build: {
         transpile: [
@@ -61,13 +69,15 @@ export default defineNuxtConfig({
         },
     },
     components: true,
-    publicRuntimeConfig: {
-        BASE_URL: process.env['BASE_URL'],
-        STORYBLOK_API_KEY_PREVIEW: process.env['STORYBLOK_API_KEY_PREVIEW'],
-        STORYBLOK_API_KEY_PUBLIC: process.env['STORYBLOK_API_KEY_PUBLIC'],
-        STORYBLOK_SPACE_ID: process.env['STORYBLOK_SPACE_ID'],
-        STORYBLOK_OAUTH_TOKEN: process.env['STORYBLOK_OAUTH_TOKEN'],
-        STORYBLOK_API_URL: process.env['STORYBLOK_API_URL'],
-        STORYBLOK_API_URL_V1: process.env['STORYBLOK_API_URL_V1'],
+    runtimeConfig: {
+        public: {
+            BASE_URL: process.env['BASE_URL'],
+            STORYBLOK_API_KEY_PREVIEW: process.env['STORYBLOK_API_KEY_PREVIEW'],
+            STORYBLOK_API_KEY_PUBLIC: process.env['STORYBLOK_API_KEY_PUBLIC'],
+            STORYBLOK_SPACE_ID: process.env['STORYBLOK_SPACE_ID'],
+            STORYBLOK_OAUTH_TOKEN: process.env['STORYBLOK_OAUTH_TOKEN'],
+            STORYBLOK_API_URL: process.env['STORYBLOK_API_URL'],
+            STORYBLOK_API_URL_V1: process.env['STORYBLOK_API_URL_V1'],
+        }
     },
 })

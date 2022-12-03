@@ -34,6 +34,7 @@ const props = defineProps({
     },
   },
 })
+
 const imageHolderRef = ref(false)
 const loadingEnlargedImage = ref(false)
 const imageRef = ref(false)
