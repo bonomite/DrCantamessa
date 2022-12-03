@@ -13,7 +13,7 @@ const props = defineProps({
 })
 
 const desc = computed(() => renderRichText(props.article.content.description))
-console.log('article = ', props.article)
+//console.log('article = ', props.article)
 </script>
 
 <template>
@@ -51,16 +51,7 @@ console.log('article = ', props.article)
           <nuxt-link class="title-link" :to="article.full_slug">
             <h5 class="title">{{ article.content.title }}</h5>
           </nuxt-link>
-          <div class="tags flex flex-row gap-2 mb-2">
-            <Tag
-              v-for="(tag, index) in article.content.tag"
-              :key="tag"
-              :value="tag"
-              :aria-label="`${tag} Tag`"
-              :tabindex="index"
-              rounded
-            />
-          </div>
+          <MyTag :article="article" />
           <div
             class="desc truncate"
             :class="props.featured ? '' : 'hide-on-mobile'"
@@ -92,15 +83,6 @@ console.log('article = ', props.article)
       @include media('<md') {
         font-size: 1.1em;
       }
-    }
-  }
-  .tags .p-tag {
-    background: var(--surface-border);
-    text-transform: uppercase;
-    font-size: 0.6em;
-    color: var(--text-color-secondary);
-    .p-tag-vale {
-      line-height: 0.5rem;
     }
   }
   .desc {

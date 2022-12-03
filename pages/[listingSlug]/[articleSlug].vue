@@ -65,6 +65,7 @@ const embed = story.value.content.embedcode
               <h1 class="text-primary mb-2">
                 {{ story.content.title }}
               </h1>
+              <MyTag :article="story" />
               <p v-if="patientName" class="p-small">
                 Patient name: {{ patientName }}
               </p>
