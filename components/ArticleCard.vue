@@ -13,7 +13,7 @@ const props = defineProps({
 })
 
 const desc = computed(() => renderRichText(props.article.content.description))
-//console.log('article = ', props.article)
+console.log('article = ', props.article)
 </script>
 
 <template>
@@ -49,7 +49,7 @@ const desc = computed(() => renderRichText(props.article.content.description))
       >
         <div>
           <nuxt-link class="title-link" :to="article.full_slug">
-            <h5 class="title">{{ article.name }}</h5>
+            <h5 class="title">{{ article.content.title }}</h5>
           </nuxt-link>
           <div class="tags flex flex-row gap-2 mb-2">
             <Tag
