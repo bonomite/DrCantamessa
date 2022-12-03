@@ -13,6 +13,7 @@ const props = defineProps({
 })
 
 const desc = computed(() => renderRichText(props.article.content.description))
+//console.log('article = ', props.article)
 </script>
 
 <template>
@@ -50,6 +51,16 @@ const desc = computed(() => renderRichText(props.article.content.description))
           <nuxt-link class="title-link" :to="article.full_slug">
             <h5 class="title">{{ article.name }}</h5>
           </nuxt-link>
+          <div class="tags flex flex-row gap-2 mb-2">
+            <Tag
+              v-for="(tag, index) in article.content.tag"
+              :key="tag"
+              :value="tag"
+              :aria-label="`${tag} Tag`"
+              :tabindex="index"
+              rounded
+            />
+          </div>
           <div
             class="desc truncate"
             :class="props.featured ? '' : 'hide-on-mobile'"
@@ -83,6 +94,15 @@ const desc = computed(() => renderRichText(props.article.content.description))
       }
     }
   }
+  .tags .p-tag {
+    background: var(--surface-border);
+    text-transform: uppercase;
+    font-size: 0.6em;
+    color: var(--text-color-secondary);
+    .p-tag-vale {
+      line-height: 0.5rem;
+    }
+  }
   .desc {
     -webkit-line-clamp: 2;
     @include media('<md') {
@@ -97,7 +117,7 @@ const desc = computed(() => renderRichText(props.article.content.description))
   .date {
     padding-top: 1rem;
     font-size: 0.75rem;
-    opacity: 0.65;
+    color: var(--text-color-secondary);
     @include media('<sm') {
       padding-top: 0.25rem;
     }
