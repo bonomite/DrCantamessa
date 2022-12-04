@@ -62,7 +62,6 @@ const embed = story.value.content.embedcode
           </div>
           <div class="col-12 lg:col-6 flex flex-column justify-content-between">
             <div>
-              <!-- <ArticleSocialShare :story="story" class="text-right" /> -->
               <h1 class="text-primary mb-2">
                 {{ story.content.title }}
               </h1>
