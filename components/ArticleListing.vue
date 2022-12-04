@@ -59,7 +59,8 @@ loadMore()
 
 //console.log('articles = ', articles.value)
 const showFolderContent = computed(() => {
-  return loadedArticles.value.stories[0]?.parent_id
+  //return loadedArticles.value?.stories[0]?.parent_id
+  return true
 })
 </script>
 

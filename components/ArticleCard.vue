@@ -25,8 +25,17 @@ const desc = computed(() => renderRichText(props.article.content.description))
       <nuxt-link
         :to="article.full_slug"
         :class="props.featured ? 'col-12 lg:col-8' : 'col-3'"
-      >
+        ><video
+          v-if="article.content.video.filename && props.featured"
+          autoplay
+          muted
+          loop
+          class="video"
+        >
+          <source :src="article.content.video.filename" type="video/mp4" />
+        </video>
         <sb-image
+          v-else
           :src="article.content.poster"
           :size="props.featured ? '' : '215x215'"
         />
@@ -84,6 +93,10 @@ const desc = computed(() => renderRichText(props.article.content.description))
         font-size: 1.1em;
       }
     }
+  }
+  .video {
+    width: 100%;
+    height: auto;
   }
   .desc {
     -webkit-line-clamp: 2;

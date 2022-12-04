@@ -9,14 +9,14 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@storyblok/nuxt": "^4.5.0",
+    "@storyblok/nuxt": "^4.6.0",
     "nuxt": "^3.0.0"
   },
   "dependencies": {
     "@vueuse/core": "^9.2.0",
     "npm": "^8.19.2",
     "primeicons": "^5.0.0",
-    "primevue": "^3.17.0",
+    "primevue": "^3.20.0",
     "primevue-designer": "github:bonomite/design-system",
     "sass": "^1.54.9",
     "vue-gtag": "^2.0.1",

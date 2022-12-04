@@ -4,7 +4,7 @@ const richText = computed(() => renderRichText(props.blok.rich_text))
 </script>
 <template>
   <div v-if="blok" v-editable="blok" class="blok text-blok mb-3">
-    <div v-html="richText" />
+    <div class="col-12 md:col-10 lg:col-8 xl:col-6 mx-auto" v-html="richText" />
   </div>
 </template>
 

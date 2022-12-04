@@ -53,6 +53,7 @@ const embed = story.value.content.embedcode
               controls
               autoplay
               muted
+              loop
               class="video"
             >
               <source :src="video.filename" type="video/mp4" />
@@ -84,8 +85,9 @@ const embed = story.value.content.embedcode
               <ArticleSocialShare :story="story" class="text-right" />
             </div>
           </div>
-          <div class="col-12 md:col-10 lg:col-8 xl:col-6">
+          <div class="col-12">
             <divider class="my-4" />
+
             <StoryblokComponent v-if="story" :blok="story.content" />
           </div>
         </div>

@@ -2,6 +2,7 @@ import { defineNuxtPlugin } from '#app'
 import Divider from 'primevue/divider/divider.esm.js'
 import Button from 'primevue/button/button.esm.js'
 import Checkbox from 'primevue/checkbox/checkbox.esm.js'
+import Galleria from 'primevue/galleria/galleria.esm.js'
 import Dialog from 'primevue/dialog/dialog.esm.js'
 import DialogService from 'primevue/dialogservice/dialogservice.esm.js'
 import InputText from 'primevue/inputtext/inputtext.esm.js'
@@ -34,6 +35,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Dialog', Dialog)
     nuxtApp.vueApp.component('Divider', Divider)
     nuxtApp.vueApp.component('Checkbox', Checkbox)
+    nuxtApp.vueApp.component('Galleria ', Galleria)
     nuxtApp.vueApp.component('InputText', InputText)
     nuxtApp.vueApp.component('Button', Button)
     nuxtApp.vueApp.component('Image', Image)
