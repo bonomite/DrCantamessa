@@ -66,8 +66,6 @@ const desc = computed(() => renderRichText(props.article.content.description))
             :class="props.featured ? '' : 'hide-on-mobile'"
             v-html="desc"
           />
-          <!-- {{ props.article.content.description.content[0].content[0].text }} -->
-          <!-- </div> -->
         </div>
         <div class="date">
           <p>Published: {{ formatDate(article.first_published_at) }}</p>

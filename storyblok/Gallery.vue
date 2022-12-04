@@ -1,92 +1,110 @@
 <script setup>
+import PhotoSwipeLightbox from 'photoswipe/lightbox'
+import 'photoswipe/style.css'
 const props = defineProps({ blok: Object })
-//console.log('props', props)
 
-/* const launchGallery = (index) => {
-  console.log('launch and show = ', index)
+const images = ref([])
+
+const transformUrl = (url, sizeArg) => {
+  let transformedUrl = null
+  const image = url
+  const size = sizeArg
+  const quality = '70'
+  const grey = false
+  const focusPoint = false
+  transformedUrl = `${image}/m/${size}${
+    focusPoint ? '' : '/smart'
+  }/filters:format(webp):quality(${quality})${grey ? ':grayscale()' : ''}${
+    focusPoint ? `:focal(${focusPoint})` : ''
+  }`
+  return transformedUrl
 }
-const responsiveOptions = [
-  {
-    breakpoint: '1024px',
-    numVisible: 5,
-  },
-  {
-    breakpoint: '768px',
-    numVisible: 3,
-  },
-  {
-    breakpoint: '560px',
-    numVisible: 1,
-  },
-]
 
-const images = ref([]) */
+const getWidthFromRatio = (url, width, height) => {
+  const w = url.split('/')[5].split('x')[0]
+  const h = url.split('/')[5].split('x')[1]
+  if (width > height) {
+    return Math.round(height * (w / h))
+  } else {
+    return width
+  }
+}
 
-/* onBeforeMount(() => {
+const getHeightFromRatio = (url, width, height) => {
+  const w = url.split('/')[5].split('x')[0]
+  const h = url.split('/')[5].split('x')[1]
+  if (height > width) {
+    return Math.round(width * (h / w))
+  } else {
+    return height
+  }
+}
+let lightbox = null
+onMounted(() => {
   props.blok.images.forEach((image) => {
-    //console.log('image = ', image)
+    const currentWindowWidth = window.innerWidth
+    const currentWindowHeight = window.innerHeight
+    const multiplier = currentWindowHeight > currentWindowWidth ? 2 : 1
+    const w = getWidthFromRatio(
+      image.filename,
+      currentWindowWidth,
+      currentWindowHeight
+    )
+    const h = getHeightFromRatio(
+      image.filename,
+      currentWindowWidth,
+      currentWindowHeight
+    )
     images.value.push({
-      itemImageSrc: image.filename,
-      thumbnailImageSrc: image.filename,
-      alt: image.alt,
-      title: image.title,
+      largeURL: transformUrl(
+        image.filename,
+        `${w * multiplier}x${h * multiplier}`
+      ),
+      thumbnailURL: transformUrl(image.filename, '351x233'),
+      width: w,
+      height: h,
     })
   })
-  console.log('images = ', images.value)
-}) */
 
-// const images = [
-//   {
-//     itemImageSrc: 'demo/images/galleria/galleria1.jpg',
-//     thumbnailImageSrc: 'demo/images/galleria/galleria1s.jpg',
-//     alt: 'Description for Image 1',
-//     title: 'Title 1',
-//   },
-//   {
-//     itemImageSrc: 'demo/images/galleria/galleria2.jpg',
-//     thumbnailImageSrc: 'demo/images/galleria/galleria2s.jpg',
-//     alt: 'Description for Image 2',
-//     title: 'Title 2',
-//   },
-// ]
+  setTimeout(() => {
+    if (!lightbox) {
+      lightbox = new PhotoSwipeLightbox({
+        gallery: '#gallery',
+        children: 'a',
+        initialZoomLevel: 0,
+        secondaryZoomLevel: 2.5,
+        maxZoomLevel: 2.5,
+        pswpModule: () => import('photoswipe'),
+      })
+      lightbox.init()
+    }
+  }, 10)
+})
+onUnmounted(() => {
+  if (!lightbox) {
+    lightbox.destroy()
+    lightbox = null
+  }
+})
 </script>
 <template>
   <div v-if="blok" v-editable="blok" class="blok gallery-blok mb-3">
-    <div class="grid">
-      <div
-        v-for="(item, index) in props.blok.images"
+    <div id="gallery" class="grid">
+      <a
+        v-for="(item, index) in images"
         :key="item.id"
-        class="col-6 md:col-4 lg:col-3 xxl:col-2"
+        class="img col-6 md:col-4 lg:col-3 xxl:col-2"
+        :href="item.largeURL"
+        :data-pswp-width="item.width"
+        :data-pswp-height="item.height"
+        target="_blank"
+        rel="noreferrer"
       >
-        <sb-image :src="item" size="351x233" @click="launchGallery(index)" />
-      </div>
+        <img :src="item.thumbnailURL" alt="" style="width: 100%" />
+        <!-- <sb-image :src="item" size="351x233" /> -->
+      </a>
     </div>
-    <!--     <ClientOnly>
-      <Galleria v-if="images.length" :value="images">
-        <template #item="slotProps">
-          <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" />
-        </template>
-      </Galleria>
-    </ClientOnly> -->
-    <!-- <Galleria
-      v-if="images.length"
-      :value="images"
-      :responsiveOptions="responsiveOptions"
-      :numVisible="5"
-    >
-      <template #item="slotProps">
-        <img
-          :src="slotProps.item.itemImageSrc"
-          :alt="slotProps.item.alt"
-          style="width: 100%"
-        />
-      </template>
-      <template #thumbnail="slotProps">
-        <img
-          :src="slotProps.item.thumbnailImageSrc"
-          :alt="slotProps.item.alt"
-        />
-      </template>
-    </Galleria> -->
   </div>
 </template>
+
+<style lang="scss"></style>
