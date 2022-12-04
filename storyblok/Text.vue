@@ -7,3 +7,15 @@ const richText = computed(() => renderRichText(props.blok.rich_text))
     <div v-html="richText" />
   </div>
 </template>
+
+<style lang="scss">
+.text-blok {
+  p {
+    margin-bottom: 1.5rem;
+  }
+  img {
+    max-width: 100%;
+    display: block;
+  }
+}
+</style>
