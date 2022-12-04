@@ -44,7 +44,7 @@ const embed = story.value.content.embedcode
       />
     </Head>
     <section class="article-page">
-      <div class="content">
+      <div class="content p-0 lg:p-5 pb-0">
         <div class="grid justify-content-center">
           <div class="col-12 lg:col-6">
             <EmbedComp v-if="embed" :code="embed" class="embed" />
@@ -60,7 +60,9 @@ const embed = story.value.content.embedcode
             </video>
             <sb-image v-else :src="poster" size="786x442" class="poster" />
           </div>
-          <div class="col-12 lg:col-6 flex flex-column justify-content-between">
+          <div
+            class="col-12 lg:col-6 flex flex-column justify-content-between px-4 md:px-5"
+          >
             <div>
               <h1 class="text-primary mb-2">
                 {{ story.content.title }}
@@ -84,7 +86,11 @@ const embed = story.value.content.embedcode
               <ArticleSocialShare :story="story" class="text-right" />
             </div>
           </div>
-          <div class="col-12">
+        </div>
+      </div>
+      <div class="content pt-0">
+        <div class="col-12">
+          <div class="grid justify-content-center">
             <divider class="my-4" />
 
             <StoryblokComponent v-if="story" :blok="story.content" />
