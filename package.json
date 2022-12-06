@@ -21,6 +21,7 @@
     "primevue-designer": "github:bonomite/design-system",
     "sass": "^1.54.9",
     "vue-gtag": "^2.0.1",
+    "vue-gtag-next": "^1.14.0",
     "vue-social-sharing": "^4.0.0-alpha4"
   }
 }
