@@ -110,7 +110,7 @@ onMounted(() => {})
                   filename:
                     'https://a-us.storyblok.com/f/1001003/512x512/997086457b/drc-icon.png',
                 }"
-                size="512x512"
+                size="256x256"
               />
             </nuxt-link>
             <div class="name-social ml-3">

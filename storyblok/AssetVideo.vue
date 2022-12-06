@@ -19,8 +19,8 @@ const caption = computed(() => renderRichText(props.blok.caption))
     :class="[{ vertical: isVertical }]"
   >
     <div class="col-12 md:col-10 lg:col-8 xl:col-6 mx-auto">
-      <h3>{{ blok.title }}</h3>
-      <div class="title mb-3" v-html="desc" />
+      <h3 v-if="blok.title">{{ blok.title }}</h3>
+      <div v-if="props.blok.description" class="title mb-3" v-html="desc" />
       <div
         v-if="blok.poster_If_Not_AutoPlay && !blok.autoplay && !isPlaying"
         class="poster"
@@ -38,7 +38,7 @@ const caption = computed(() => renderRichText(props.blok.caption))
       >
         <source :src="blok.video.filename" type="video/mp4" />
       </video>
-      <div class="caption" v-html="caption" />
+      <div v-if="props.blok.caption" class="caption" v-html="caption"></div>
     </div>
   </div>
 </template>
@@ -87,10 +87,6 @@ const caption = computed(() => renderRichText(props.blok.caption))
       bottom: 0;
       margin: auto;
     }
-  }
-  .caption {
-    font-size: 0.75rem;
-    color: var(--text-color-secondary);
   }
   &.vertical {
     .video {
