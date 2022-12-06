@@ -24,7 +24,7 @@ const embed = story.value.content.embedcode
 //   `${config.STORYBLOK_API_URL}/stories/${route.fullPath}?token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`
 // )
 
-console.log('story = ', story)
+//console.log('story = ', story)
 </script>
 
 <template>
