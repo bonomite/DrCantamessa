@@ -30,7 +30,7 @@ const props = defineProps({
   density: {
     type: Array,
     default() {
-      return [2, 3]
+      return [2]
     },
   },
 })
@@ -78,10 +78,9 @@ const transformUrl = () => {
   )
   // add height token
   transformedUrlToken = transformedUrlTokenW.replace(
-    transformedUrl.split('/')[10].split('x')[1],
+    transformedUrl.split('/')[9].split('x')[1],
     'TOKENHEIGHT'
   )
-  console.log('transformedUrlToken = ', transformedUrlToken)
   return transformedUrl
 }
 
@@ -119,7 +118,6 @@ const srcset = () => {
         } `
       }
     }
-    //console.log('srcset -= ', srcset)
     return srcset
   } else {
     return undefined
