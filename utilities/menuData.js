@@ -26,7 +26,7 @@ export async function getMenuData() {
                     label: value.name,
                     to: `/${value.slug}`,
                     command: () => {
-                        gaEvent('Click Tracking', 'Navigation', value.name)
+                        //gaEvent('Click Tracking', 'Navigation', value.name)
                     }
                 })
             }

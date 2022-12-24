@@ -66,22 +66,22 @@ const transformUrl = () => {
   const quality = props.quality
   const grey = props.greyscale
   if (!image) return ''
-  transformedUrl = `${image}/m/${size}${
+  transformedUrl = `/m/${size}${
     focusPoint ? '' : '/smart'
   }/filters:format(webp):quality(${quality})${grey ? ':grayscale()' : ''}${
     focusPoint ? `:focal(${focusPoint})` : ''
   }`
   // add width token
   const transformedUrlTokenW = transformedUrl.replace(
-    transformedUrl.split('/')[9].split('x')[0],
+    transformedUrl.split('/')[2].split('x')[0],
     'TOKENWIDTH'
   )
   // add height token
-  transformedUrlToken = transformedUrlTokenW.replace(
-    transformedUrl.split('/')[9].split('x')[1],
+  transformedUrlToken = `${image}${transformedUrlTokenW.replace(
+    transformedUrl.split('/')[2].split('x')[1],
     'TOKENHEIGHT'
-  )
-  return transformedUrl
+  )}`
+  return `${image}${transformedUrl}`
 }
 
 const srcset = () => {
@@ -126,7 +126,7 @@ const srcset = () => {
 
 const computedEnlargeSrc = computed(() => {
   const template = transformedUrlToken
-
+  console.log('template = ', template)
   return template
     ? template
         .replace('TOKENWIDTH', maxWidth.value)
