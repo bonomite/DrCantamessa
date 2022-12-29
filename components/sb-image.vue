@@ -43,6 +43,7 @@ const loadingEnlargedImage = ref(false)
 const imageRef = ref(false)
 const ready = ref(props.size ? true : false)
 const focusPoint = props.src?.focus
+const isRatio = props.ratio.length > 0
 let transformedUrl = null
 let transformedUrlToken = null
 
@@ -81,7 +82,7 @@ const transformUrl = () => {
   const image = props.src?.filename
   const size =
     props.size ||
-    (props.ratio.length > 0
+    (isRatio
       ? `${getRatioDimensions.value.width}x${getRatioDimensions.value.height}`
       : `${currentWidth}x0`)
   const quality = props.quality
@@ -111,7 +112,7 @@ const srcset = () => {
   const theWidth = props.size ? sizeWidth : responsiveWidth
   const theHeight = props.size
     ? sizeHeight
-    : props.ratio.length > 0
+    : isRatio
     ? getRatioDimensions.value.height
     : 0
   if (template && props.density) {
@@ -123,7 +124,7 @@ const srcset = () => {
         let width = null
         let height = null
         /* the image no longer has enough resolution to support the next srcset, use its maximum size and make it the last on the srcset list */
-        if (props.ratio.length > 0) {
+        if (isRatio) {
           width = Math.round(getRatioDimensions.value.width * densitySize)
           height = Math.round(getRatioDimensions.value.height * densitySize)
           if (width > maxWidth.value || height > maxHeight.value) {
@@ -200,9 +201,9 @@ onMounted(() => {
     <div
       v-if="!ready"
       class="loading-indication"
-      :style="`aspect-ratio: ${
-        props.ratio.length > 0 ? props.ratio[0] : sizeWidth
-      } / ${props.ratio.length > 0 ? props.ratio[1] : sizeHeight};`"
+      :style="`aspect-ratio: ${isRatio ? props.ratio[0] : sizeWidth} / ${
+        isRatio ? props.ratio[1] : sizeHeight
+      };`"
     >
       <ProgressSpinner
         strokeWidth="8"
