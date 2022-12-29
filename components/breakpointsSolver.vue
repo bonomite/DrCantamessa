@@ -37,7 +37,7 @@ onMounted(() => {
   isMounted.value = true
 })
 watch([isXs, isSm, isMd, isLg, isXl, isXxl, isXxxl], () => {
-  //console.log('breakpoint watch changed')
+  //console.log('breakpoint watch changed = ', getResponsiveSize.value)
   if (isMounted.value) {
     currentBreakpoint.value = getResponsiveSize.value
   }

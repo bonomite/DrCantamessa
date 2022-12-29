@@ -11,7 +11,7 @@ const poster = story.value.content.poster
 
 <template>
   <section class="index-page">
-    <sb-image :src="poster" />
+    <sb-image :src="poster" :ratio="[5, 2]" />
     <div class="content">
       <h1 class="mb-2">{{ title }}</h1>
       <div v-html="info" />

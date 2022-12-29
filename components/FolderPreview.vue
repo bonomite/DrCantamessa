@@ -19,7 +19,7 @@ const props = defineProps({
 
 // remove the initial "/"
 const folderName = props.to.replace(/^\/|\/$/g, '')
-console.log('folderName = ', folderName)
+//console.log('folderName = ', folderName)
 
 const {
   data: articles,
@@ -68,7 +68,7 @@ const showFolderContent = computed(() => {
           <div class="col-12 md:col-4">
             <div class="article-card flex flex-column relative">
               <nuxt-link :to="article.full_slug">
-                <sb-image :src="article.content.poster" size="443x222" />
+                <sb-image :src="article.content.poster" size="443x322" />
               </nuxt-link>
               <nuxt-link class="overlay-title" :to="article.full_slug">
                 <h4 class="title">{{ article.name }}</h4>

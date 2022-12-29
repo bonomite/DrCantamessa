@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import ProgressSpinner from 'primevue/progressspinner'
-const currentBreakpoint = useCurrentBreakpoint()
 const props = defineProps({
   src: {
     type: Object,
@@ -33,9 +32,13 @@ const props = defineProps({
       return [2]
     },
   },
+  ratio: {
+    type: Array,
+    default: () => [],
+  },
 })
 
-const imageHolderRef = ref(false)
+const imageHolderRef = ref(null)
 const loadingEnlargedImage = ref(false)
 const imageRef = ref(false)
 const ready = ref(props.size ? true : false)
@@ -45,11 +48,11 @@ let transformedUrlToken = null
 
 const maxWidth = computed(() => {
   const str = props.src?.filename.split('/')[5]
-  return str.split('x')[0]
+  return Number(str.split('x')[0])
 })
 const maxHeight = computed(() => {
   const str = props.src?.filename.split('/')[5]
-  return str.split('x')[1]
+  return Number(str.split('x')[1])
 })
 const sizeWidth = Number(
   props.size ? props.size?.split('x')[0] : maxWidth.value
@@ -58,11 +61,29 @@ const sizeHeight = Number(
   props.size ? props.size?.split('x')[1] : maxHeight.value
 )
 
-let currentWidth = currentBreakpoint.value // will be determined on mounted
+const getRatioDimensions = computed(() => {
+  const hRatio = Number(props.ratio[0])
+  const vRatio = Number(props.ratio[1])
+  // for low rez images
+  let theWidth = currentWidth
+  if (maxWidth.value && maxWidth.value < theWidth) {
+    theWidth = maxWidth.value
+  }
+  return {
+    width: theWidth,
+    height: Math.round((theWidth * vRatio) / hRatio),
+  }
+})
+
+let currentWidth = null // will be determined on mounted
 
 const transformUrl = () => {
   const image = props.src?.filename
-  const size = props.size || `${currentWidth}x0`
+  const size =
+    props.size ||
+    (props.ratio.length > 0
+      ? `${getRatioDimensions.value.width}x${getRatioDimensions.value.height}`
+      : `${currentWidth}x0`)
   const quality = props.quality
   const grey = props.greyscale
   if (!image) return ''
@@ -88,19 +109,35 @@ const srcset = () => {
   const template = transformedUrlToken
   const responsiveWidth = Number(currentWidth)
   const theWidth = props.size ? sizeWidth : responsiveWidth
-  const theHeight = props.size ? sizeHeight : 0
+  const theHeight = props.size
+    ? sizeHeight
+    : props.ratio.length > 0
+    ? getRatioDimensions.value.height
+    : 0
   if (template && props.density) {
     let srcset = ''
     let lastImage = false
     for (const densitySize of props.density) {
       /* continue if it is NOT the lastImage and the image has more pixels than its rendered area */
       if (!lastImage && maxWidth.value > theWidth) {
-        let width = Math.round(theWidth * densitySize)
-        let height = Math.round(theHeight * densitySize)
-
+        let width = null
+        let height = null
         /* the image no longer has enough resolution to support the next srcset, use its maximum size and make it the last on the srcset list */
-        if (width > maxWidth.value || height > maxHeight.value) {
-          lastImage = true
+        if (props.ratio.length > 0) {
+          width = Math.round(getRatioDimensions.value.width * densitySize)
+          height = Math.round(getRatioDimensions.value.height * densitySize)
+          if (width > maxWidth.value || height > maxHeight.value) {
+            console.log('max ? = ', maxWidth.value, maxHeight.value)
+            console.log('last ? = ', width, height)
+            lastImage = true
+          }
+        } else {
+          width = Math.round(theWidth * densitySize)
+          height = Math.round(theHeight * densitySize)
+          if (width > maxWidth.value || height > maxHeight.value) {
+            height = height !== 0 ? height : 0
+            lastImage = true
+          }
         }
         //if we are on the last size in the array set lastImage to true
         if (props.density.length - 1 === props.density.indexOf(densitySize)) {
@@ -149,6 +186,11 @@ const closeEnlarge = () => {
 }
 
 onMounted(() => {
+  const imageHolderWidth = imageHolderRef.value.offsetWidth
+  const maxW = Number(maxWidth.value)
+  // console.log('maxW = ', maxW)
+  // console.log('imageHolderWidth = ', imageHolderWidth)
+  currentWidth = imageHolderWidth > maxW ? maxW : imageHolderWidth
   ready.value = true
 })
 </script>
@@ -158,7 +200,9 @@ onMounted(() => {
     <div
       v-if="!ready"
       class="loading-indication"
-      :style="`aspect-ratio: ${sizeWidth} / ${sizeHeight};`"
+      :style="`aspect-ratio: ${
+        props.ratio.length > 0 ? props.ratio[0] : sizeWidth
+      } / ${props.ratio.length > 0 ? props.ratio[1] : sizeHeight};`"
     >
       <ProgressSpinner
         strokeWidth="8"

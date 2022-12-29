@@ -58,7 +58,13 @@ const embed = story.value.content.embedcode
             >
               <source :src="video.filename" type="video/mp4" />
             </video>
-            <sb-image v-else :src="poster" size="786x442" class="poster" />
+            <sb-image
+              v-else
+              :src="poster"
+              size="824x462"
+              class="poster"
+              :density="[]"
+            />
           </div>
           <div
             class="col-12 lg:col-6 flex flex-column justify-content-between px-4 md:px-5"
