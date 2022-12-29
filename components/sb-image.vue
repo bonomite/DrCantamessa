@@ -43,7 +43,7 @@ const loadingEnlargedImage = ref(false)
 const imageRef = ref(false)
 const ready = ref(props.size ? true : false)
 const focusPoint = props.src?.focus
-const isRatio = props.ratio.length > 0
+const isRatio = props.ratio.length > 0 && props.size === ''
 let transformedUrl = null
 let transformedUrlToken = null
 
