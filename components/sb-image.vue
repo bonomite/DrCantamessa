@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import Image from 'primevue/image'
 import ProgressSpinner from 'primevue/progressspinner'
+
 const props = defineProps({
   src: {
     type: Object,
@@ -17,6 +19,10 @@ const props = defineProps({
   quality: {
     type: Number,
     default: 70,
+  },
+  format: {
+    type: String,
+    default: 'webp',
   },
   greyscale: {
     type: Boolean,
@@ -35,6 +41,10 @@ const props = defineProps({
   ratio: {
     type: Array,
     default: () => [],
+  },
+  scale: {
+    type: Boolean,
+    default: true,
   },
 })
 
@@ -88,9 +98,9 @@ const transformUrl = () => {
   const quality = props.quality
   const grey = props.greyscale
   if (!image) return ''
-  transformedUrl = `/m/${size}${
-    focusPoint ? '' : '/smart'
-  }/filters:format(webp):quality(${quality})${grey ? ':grayscale()' : ''}${
+  transformedUrl = `/m/${size}${focusPoint ? '' : '/smart'}/filters:format(${
+    props.format
+  }):quality(${quality})${grey ? ':grayscale()' : ''}${
     focusPoint ? `:focal(${focusPoint})` : ''
   }`
   // add width token
@@ -186,25 +196,23 @@ const closeEnlarge = () => {
   loadingEnlargedImage.value = false
 }
 
+const getInlineAspectRatio = computed(() => {
+  return `aspect-ratio: ${isRatio ? props.ratio[0] : sizeWidth} / ${
+    isRatio ? props.ratio[1] : sizeHeight
+  };`
+})
+
 onMounted(() => {
   const imageHolderWidth = imageHolderRef.value.offsetWidth
   const maxW = Number(maxWidth.value)
-  // console.log('maxW = ', maxW)
-  // console.log('imageHolderWidth = ', imageHolderWidth)
   currentWidth = imageHolderWidth > maxW ? maxW : imageHolderWidth
   ready.value = true
 })
 </script>
 
 <template>
-  <div ref="imageHolderRef" class="sb-image">
-    <div
-      v-if="!ready"
-      class="loading-indication"
-      :style="`aspect-ratio: ${isRatio ? props.ratio[0] : sizeWidth} / ${
-        isRatio ? props.ratio[1] : sizeHeight
-      };`"
-    >
+  <div ref="imageHolderRef" class="sb-image" :class="[{ scale: props.scale }]">
+    <div v-if="!ready" class="loading-indication" :style="getInlineAspectRatio">
       <ProgressSpinner
         strokeWidth="8"
         animationDuration=".5s"
@@ -215,7 +223,7 @@ onMounted(() => {
       v-else
       ref="imageRef"
       class="image"
-      :style="`aspect-ratio: ${sizeWidth} / ${sizeHeight};`"
+      :style="getInlineAspectRatio"
       :src="transformUrl()"
       :srcset="srcset()"
       :alt="props.src?.alt"
@@ -251,8 +259,6 @@ onMounted(() => {
   z-index: 2;
 }
 .sb-image {
-  width: 100%;
-  height: auto;
   .loading-indication {
     width: 100%;
     height: auto;
@@ -262,10 +268,18 @@ onMounted(() => {
     justify-content: center;
     text-align: center;
   }
-  .p-image img {
-    display: block;
+  .p-image {
+    img {
+      display: block;
+    }
+  }
+  &.scale {
     width: 100%;
     height: auto;
+    .p-image img {
+      width: 100%;
+      height: auto;
+    }
   }
 }
 </style>

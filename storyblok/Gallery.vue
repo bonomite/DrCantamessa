@@ -101,7 +101,6 @@ onUnmounted(() => {
         rel="noreferrer"
       >
         <img :src="item.thumbnailURL" alt="" style="width: 100%" />
-        <!-- <sb-image :src="item" size="351x233" /> -->
       </a>
     </div>
   </div>
