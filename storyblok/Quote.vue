@@ -1,8 +1,8 @@
 <script setup>
 import { computed, ref } from 'vue'
+import StoryblokClient from 'storyblok-js-client'
 //import sbImage from './sb-image.vue'
 const props = defineProps({ blok: Object })
-const StoryblokClient = require('storyblok-js-client')
 let Storyblok = new StoryblokClient({})
 const richText = computed(() =>
   Storyblok.richTextResolver.render(props.blok.quote)

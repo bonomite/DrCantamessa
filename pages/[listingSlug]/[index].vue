@@ -13,14 +13,12 @@ console.log('story.value', story.value.content.poster)
   <section class="index-page">
     <sb-image :src="poster" />
     <div class="content">
-      <div class="mb-3">
-        <div class="col-12">
-          <h1 class="mb-2">{{ title }}</h1>
-          <div v-html="info" />
-        </div>
+      <div class="mb-6">
+        <h1 class="mb-2">{{ title }}</h1>
+        <div v-html="info" />
       </div>
       <StoryblokComponent v-if="story" :blok="story.content" />
-      <FolderPreview :to="route.fullPath" noHeader class="mt-6" />
+      <FolderPreview :to="route.fullPath" noHeader />
     </div>
   </section>
 </template>
