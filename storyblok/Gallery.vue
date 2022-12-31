@@ -2,7 +2,6 @@
 import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import 'photoswipe/style.css'
 const props = defineProps({ blok: Object })
-
 const images = ref([])
 
 const transformUrl = (url, sizeArg) => {
@@ -88,7 +87,7 @@ onUnmounted(() => {
 })
 </script>
 <template>
-  <div v-if="blok" v-editable="blok" class="blok gallery-blok mb-3">
+  <div v-if="blok" v-editable="blok" class="blok full-width gallery-blok mb-3">
     <div id="gallery" class="grid">
       <a
         v-for="(item, index) in images"

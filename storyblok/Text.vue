@@ -1,10 +1,16 @@
 <script setup>
 const props = defineProps({ blok: Object })
 const richText = computed(() => renderRichText(props.blok.rich_text))
+const fullWidth = ref(props.blok.full_width)
 </script>
 <template>
-  <div v-if="blok" v-editable="blok" class="blok text-blok mb-3">
-    <div class="col-12 md:col-10 lg:col-8 xl:col-6 mx-auto" v-html="richText" />
+  <div
+    v-if="blok"
+    v-editable="blok"
+    class="blok text-blok mb-3"
+    :class="[{ 'full-width': fullWidth }]"
+  >
+    <div v-html="richText" />
   </div>
 </template>
 

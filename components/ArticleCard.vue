@@ -82,6 +82,7 @@ const desc = computed(() => renderRichText(props.article.content.description))
 .article-card {
   .title-link {
     text-decoration: none;
+    display: inline-flex;
     &:hover {
       text-decoration: underline;
     }

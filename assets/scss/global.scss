@@ -55,6 +55,22 @@ section {
         @include media('<md') {
             padding: 1.5rem 1rem;
         }
+        .blok {
+            margin: auto;
+            width: 50%;
+            @include media('<xl') {
+                width: 66.6667%;
+            }
+            @include media('<lg') {
+                width: 83.3333%;
+            }
+            @include media('<md') {
+                width: 100%;
+            }
+            &.full-width {
+                width: 100% !important;
+            }
+        }
     }
 }
 
