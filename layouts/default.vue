@@ -26,7 +26,10 @@ onMounted(() => {})
           name="description"
           content="Website for Dr. Tracey Cantamessa DVM, Veterinarian"
         />
-
+        <Meta
+          name="google-site-verification"
+          content="906z384tE6i0ldZm_F9U5-rYQ2Dhw3t2M5ZsT_5cztE"
+        />
         <Meta
           name="og:site_name"
           content="Dr. Tracey Cantamessa DVM, Veterinarian"
