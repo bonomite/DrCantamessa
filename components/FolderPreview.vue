@@ -13,25 +13,18 @@ const props = defineProps({
   },
   limit: {
     type: String,
-    default: '100',
+    default: "100",
   },
 })
 
 // remove the initial "/"
-const folderName = props.to.replace(/^\/|\/$/g, '')
-console.log('folderName = ', folderName)
+const folderName = props.to.replace(/^\/|\/$/g, "")
+console.log("folderName = ", folderName)
 
-const {
-  data: articles,
-  pending,
-  error,
-  refresh,
-} = await useFetch(
-  `${
-    config.STORYBLOK_API_URL
-  }/stories?starts_with=${folderName}&is_startpage=0${
-    props.limit ? `&per_page=${props.limit}` : ''
-  } &token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
+const { data: articles, pending, error, refresh } = await useFetch(
+  `${config.public.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0${
+    props.limit ? `&per_page=${props.limit}` : ""
+  } &token=${config.public.STORYBLOK_API_KEY_PREVIEW}&version=published`,
   { key: `articles-${folderName}` }
 )
 
@@ -45,10 +38,7 @@ const showFolderContent = computed(() => {
   <div class="folder-preview mb-8" v-if="showFolderContent">
     <div v-if="pending">LOADING...</div>
     <div v-else>
-      <div
-        v-if="!noHeader"
-        class="flex justify-content-between align-items-end"
-      >
+      <div v-if="!noHeader" class="flex justify-content-between align-items-end">
         <nuxt-link :to="`/${folderName}`" class="no-underline">
           <p class="uppercase text-2xl" style="line-height: 0.75rem">
             {{ folderName }}
@@ -113,7 +103,7 @@ const showFolderContent = computed(() => {
         color: #ffffff;
       }
       .title {
-        @include media('<xl') {
+        @include media("<xl") {
           font-size: 1.25em;
         }
       }
