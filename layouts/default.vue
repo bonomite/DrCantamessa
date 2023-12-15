@@ -12,7 +12,7 @@ const year = new Date().getFullYear()
 // const closeSidebar = () => (sidebarOpen.value = false)
 
 globalMenuData.value = await getMenuData()
-console.log("globalMenuData = ", globalMenuData.value)
+//console.log("globalMenuData = ", globalMenuData.value)
 onMounted(() => {})
 </script>
 
@@ -119,7 +119,7 @@ onMounted(() => {})
           </div>
           <div class="menu grid mt-4">
             <div class="col-12 flex flex-wrap row-gap-4 column-gap-6">
-              <nuxt-link v-for="item in globalMenuData" :to="item.route">
+              <nuxt-link v-for="item in globalMenuData" :to="item.to">
                 {{ item.label }}
               </nuxt-link>
             </div>

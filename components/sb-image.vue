@@ -1,6 +1,6 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import ProgressSpinner from 'primevue/progressspinner'
+import { ref, computed, onMounted } from "vue"
+import ProgressSpinner from "primevue/progressspinner"
 const currentBreakpoint = useCurrentBreakpoint()
 const props = defineProps({
   src: {
@@ -9,11 +9,11 @@ const props = defineProps({
   },
   loading: {
     type: String,
-    default: 'lazy',
+    default: "lazy",
   },
   size: {
     type: String,
-    default: '',
+    default: "",
   },
   quality: {
     type: Number,
@@ -44,19 +44,15 @@ let transformedUrl = null
 let transformedUrlToken = null
 
 const maxWidth = computed(() => {
-  const str = props.src?.filename.split('/')[5]
-  return str.split('x')[0]
+  const str = props.src?.filename.split("/")[5]
+  return str.split("x")[0]
 })
 const maxHeight = computed(() => {
-  const str = props.src?.filename.split('/')[5]
-  return str.split('x')[1]
+  const str = props.src?.filename.split("/")[5]
+  return str.split("x")[1]
 })
-const sizeWidth = Number(
-  props.size ? props.size?.split('x')[0] : maxWidth.value
-)
-const sizeHeight = Number(
-  props.size ? props.size?.split('x')[1] : maxHeight.value
-)
+const sizeWidth = Number(props.size ? props.size?.split("x")[0] : maxWidth.value)
+const sizeHeight = Number(props.size ? props.size?.split("x")[1] : maxHeight.value)
 
 let currentWidth = currentBreakpoint.value // will be determined on mounted
 
@@ -65,21 +61,21 @@ const transformUrl = () => {
   const size = props.size || `${currentWidth}x0`
   const quality = props.quality
   const grey = props.greyscale
-  if (!image) return ''
+  if (!image) return ""
   transformedUrl = `/m/${size}${
-    focusPoint ? '' : '/smart'
-  }/filters:format(webp):quality(${quality})${grey ? ':grayscale()' : ''}${
-    focusPoint ? `:focal(${focusPoint})` : ''
+    focusPoint ? "" : "/smart"
+  }/filters:format(webp):quality(${quality})${grey ? ":grayscale()" : ""}${
+    focusPoint ? `:focal(${focusPoint})` : ""
   }`
   // add width token
   const transformedUrlTokenW = transformedUrl.replace(
-    transformedUrl.split('/')[2].split('x')[0],
-    'TOKENWIDTH'
+    transformedUrl.split("/")[2].split("x")[0],
+    "TOKENWIDTH"
   )
   // add height token
   transformedUrlToken = `${image}${transformedUrlTokenW.replace(
-    transformedUrl.split('/')[2].split('x')[1],
-    'TOKENHEIGHT'
+    transformedUrl.split("/")[2].split("x")[1],
+    "TOKENHEIGHT"
   )}`
   return `${image}${transformedUrl}`
 }
@@ -90,7 +86,7 @@ const srcset = () => {
   const theWidth = props.size ? sizeWidth : responsiveWidth
   const theHeight = props.size ? sizeHeight : 0
   if (template && props.density) {
-    let srcset = ''
+    let srcset = ""
     let lastImage = false
     for (const densitySize of props.density) {
       /* continue if it is NOT the lastImage and the image has more pixels than its rendered area */
@@ -107,15 +103,13 @@ const srcset = () => {
           lastImage = true
         }
         const url = template
-          .replace('TOKENWIDTH', width)
-          .replace('TOKENHEIGHT', height)
+          .replace("TOKENWIDTH", width)
+          .replace("TOKENHEIGHT", height)
           //remove original qaulity filter
-          .replace(`:quality(${props.quality})`, '')
+          .replace(`:quality(${props.quality})`, "")
         // lower the quasliy for the larger images
         const quality = props.quality - (densitySize - 1) * 5
-        srcset += `${url}:quality(${quality}) ${densitySize}x${
-          !lastImage ? ',' : ''
-        } `
+        srcset += `${url}:quality(${quality}) ${densitySize}x${!lastImage ? "," : ""} `
       }
     }
     return srcset
@@ -126,22 +120,22 @@ const srcset = () => {
 
 const computedEnlargeSrc = computed(() => {
   const template = transformedUrlToken
-  console.log('template = ', template)
+  //console.log('template = ', template)
   return template
     ? template
-        .replace('TOKENWIDTH', maxWidth.value)
-        .replace('TOKENHEIGHT', maxHeight.value)
+        .replace("TOKENWIDTH", maxWidth.value)
+        .replace("TOKENHEIGHT", maxHeight.value)
         //remove original qaulity filter
-        .replace(`:quality(${props.quality})`, ':quality(80)')
+        .replace(`:quality(${props.quality})`, ":quality(80)")
     : undefined
 })
 
 const enlarge = () => {
   //console.log('enlarging', computedEnlargeSrc.value)
   loadingEnlargedImage.value = true
-  const img = document.getElementsByClassName('p-image-preview')
-  img[0].setAttribute('alt', props.alt)
-  img[0].setAttribute('src', computedEnlargeSrc.value)
+  const img = document.getElementsByClassName("p-image-preview")
+  img[0].setAttribute("alt", props.alt)
+  img[0].setAttribute("src", computedEnlargeSrc.value)
 }
 
 const closeEnlarge = () => {
@@ -160,11 +154,7 @@ onMounted(() => {
       class="loading-indication"
       :style="`aspect-ratio: ${sizeWidth} / ${sizeHeight};`"
     >
-      <ProgressSpinner
-        strokeWidth="8"
-        animationDuration=".5s"
-        style="height: 80%"
-      />
+      <ProgressSpinner strokeWidth="8" animationDuration=".5s" style="height: 80%" />
     </div>
     <Image
       v-else

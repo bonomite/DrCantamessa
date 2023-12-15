@@ -16,14 +16,14 @@ export async function getMenuData() {
     let menuDataArr = []
     const foldersToSkipArr = ['surgery', 'enrichment', 'articles']
     for (const [key, val] of Object.entries(linksData.value.links)) {
-        console.log('menu val - ', val)
+        //console.log('menu val - ', val)
         // temp condition to clear folders from, menu
         if (!foldersToSkipArr.includes(val.slug)) {
             if (val.is_folder || (!val.parent_id && val.real_path !== '/')) {
                 console.log('yes')
                 menuDataArr.push({
                     label: val.name,
-                    route: `/${val.slug}`,
+                    to: `/${val.slug}`,
                     //command: () => {
                     //gaEvent('Click Tracking', 'Navigation', value.name)
                     //}
