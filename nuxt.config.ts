@@ -10,6 +10,7 @@ export default defineNuxtConfig({
             }
         }],
         //'@nuxt/image-edge',
+        '@nuxtseo/module',
     ],
     // image: {
     //     provider: 'storyblok',
@@ -68,6 +69,16 @@ export default defineNuxtConfig({
             // }
         },
     },
+    // site: {
+    //     url: 'https://drcantamessa.com/',
+    //     name: 'Dr. Tracey Cantamessa DVM',
+    //     description: 'Welcome to officail site for Dr. Tracey Cantamessa DVM',
+    //     defaultLocale: 'en',
+    //     identity: {
+    //         type: 'Person'
+    //     },
+    //     twitter: '@Dr_Cantamessa',
+    // },
     components: true,
     runtimeConfig: {
         public: {

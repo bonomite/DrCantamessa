@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { getMenuData } from '~/utilities/menuData.js'
-import BreakpointsSolver from '../components/breakpointsSolver.vue'
+import { ref, onMounted } from "vue"
+import { getMenuData } from "~/utilities/menuData.js"
+import BreakpointsSolver from "../components/breakpointsSolver.vue"
 const globalMenuData = useMenuData()
 // import { useRuntimeConfig } from '#app'
 // import { useSidebarIsOpen } from '~~/composables/states.js'
@@ -12,7 +12,7 @@ const year = new Date().getFullYear()
 // const closeSidebar = () => (sidebarOpen.value = false)
 
 globalMenuData.value = await getMenuData()
-//console.log('globalMenuData = ', globalMenuData.value)
+//console.log("globalMenuData = ", globalMenuData.value)
 onMounted(() => {})
 </script>
 
@@ -20,7 +20,7 @@ onMounted(() => {})
   <div class="page" :class="[`${route.name as string}`]">
     <Html lang="en">
       <Head>
-        <!-- <Link rel="preconnect" :href="config.API_URL" /> -->
+        <!-- <Link rel="preconnect" :href="config.public.API_URL" /> -->
         <Title>Dr Cantamessa: Veterinarian</Title>
         <Meta
           name="description"
@@ -30,24 +30,12 @@ onMounted(() => {})
           name="google-site-verification"
           content="906z384tE6i0ldZm_F9U5-rYQ2Dhw3t2M5ZsT_5cztE"
         />
-        <Meta
-          name="og:site_name"
-          content="Dr. Tracey Cantamessa DVM, Veterinarian"
-        />
+        <Meta name="og:site_name" content="Dr. Tracey Cantamessa DVM, Veterinarian" />
         <Meta name="og:type" content="website" />
-        <Meta
-          name="og:url"
-          :content="`https://www.drcantamessa.com${route.fullPath}`"
-        />
-        <Meta
-          name="og:title"
-          content="Dr. Tracey Cantamessa DVM, Veterinarian"
-        />
+        <Meta name="og:url" :content="`https://www.drcantamessa.com${route.fullPath}`" />
+        <Meta name="og:title" content="Dr. Tracey Cantamessa DVM, Veterinarian" />
         <Meta name="og:description" content="Veterinarian services." />
-        <Meta
-          name="og:image"
-          content="https://www.drcantamessa.com/og-image.png"
-        />
+        <Meta name="og:image" content="https://www.drcantamessa.com/og-image.png" />
         <Meta name="og:locale" content="en_US" />
         <Meta name="og:image:width" content="1200" />
         <Meta name="og:image:height" content="430" />
@@ -55,23 +43,9 @@ onMounted(() => {})
         <Meta name="twitter:card" content="summary_large_image" />
         <Meta name="twitter:site" content="@drcantamessa" />
 
-        <Link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <Link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <Link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
+        <Link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <Link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <Link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <Link rel="manifest" href="/site.webmanifest" />
         <Link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ba68c8" />
         <Meta name="msapplication-TileColor" content="#ba68c8" />
@@ -80,7 +54,7 @@ onMounted(() => {})
     </Html>
 
     <!-- Google Tag Manager (noscript) -->
-    <!-- <div v-html='`<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${config.GTM_ID}"
+    <!-- <div v-html='`<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${config.public.GTM_ID}"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`' /> -->
     <!-- End Google Tag Manager (noscript) -->
     <!-- HEADER HERE -->
@@ -179,13 +153,13 @@ onMounted(() => {})
         display: block;
         margin-right: 0.5rem;
         margin-bottom: -2px;
-        @include media('<xl') {
+        @include media("<xl") {
           width: 25vw;
         }
-        @include media('<md') {
+        @include media("<md") {
           width: 55vw;
         }
-        @include media('<sm') {
+        @include media("<sm") {
           width: 70vw;
         }
       }
@@ -234,7 +208,7 @@ onMounted(() => {})
   .menu {
     padding-left: 155px;
     padding-right: 2rem;
-    @include media('<sm') {
+    @include media("<sm") {
       padding-left: 2rem;
     }
     a {

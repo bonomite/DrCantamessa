@@ -10,24 +10,22 @@ export async function getMenuData() {
         error,
         refresh,
     } = await useFetch(
-        `${config.STORYBLOK_API_URL}/links/?token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`
+        `${config.public.STORYBLOK_API_URL}/links/?token=${config.public.STORYBLOK_API_KEY_PREVIEW}&version=published`
     )
-
-    //console.log('menuData = ', linksData)
 
     let menuDataArr = []
     const foldersToSkipArr = ['surgery', 'enrichment', 'articles']
-    for (const [key, value] of Object.entries(linksData.value.links)) {
-        //console.log('menu value - ', value)
+    for (const [key, val] of Object.entries(linksData.value.links)) {
+        //console.log('menu val - ', val)
         // temp condition to clear folders from, menu
-        if (!foldersToSkipArr.includes(value.slug)) {
-            if (value.is_folder || (!value.parent_id && value.real_path !== '/')) {
+        if (!foldersToSkipArr.includes(val.slug)) {
+            if (val.is_folder || (!val.parent_id && val.real_path !== '/')) {
                 menuDataArr.push({
-                    label: value.name,
-                    to: `/${value.slug}`,
-                    command: () => {
-                        //gaEvent('Click Tracking', 'Navigation', value.name)
-                    }
+                    label: val.name,
+                    to: `/${val.slug}`,
+                    //command: () => {
+                    //gaEvent('Click Tracking', 'Navigation', value.name)
+                    //}
                 })
             }
         }

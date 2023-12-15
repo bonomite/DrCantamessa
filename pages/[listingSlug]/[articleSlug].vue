@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { formatDate } from '~/utilities/helpers.js'
+import { computed } from "vue"
+import { formatDate } from "~/utilities/helpers.js"
 const route = useRoute()
-const story = await useAsyncStoryblok(route.fullPath, { version: 'published' })
+const story = await useAsyncStoryblok(route.fullPath, { version: "published" })
 //console.log('story = ', story.value)
-const description = computed(() =>
-  renderRichText(story.value.content.description)
-)
+const description = computed(() => renderRichText(story.value.content.description))
 const date = computed(() => formatDate(story.value.first_published_at))
 const dateUpdated = computed(() => formatDate(story.value.published_at))
 const patientName = story.value.content.patient_name
@@ -21,7 +19,7 @@ const embed = story.value.content.embedcode
 //   error,
 //   refresh,
 // } = await useFetch(
-//   `${config.STORYBLOK_API_URL}/stories/${route.fullPath}?token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`
+//   `${config.public.STORYBLOK_API_URL}/stories/${route.fullPath}?token=${config.public.STORYBLOK_API_KEY_PREVIEW}&version=published`
 // )
 
 //console.log('story = ', story)
@@ -37,25 +35,14 @@ const embed = story.value.content.embedcode
         v-if="story"
         :content="story.content.description.content[0].content[0].text"
       />
-      <Meta
-        name="og:image"
-        v-if="story"
-        :content="story.content.poster.filename"
-      />
+      <Meta name="og:image" v-if="story" :content="story.content.poster.filename" />
     </Head>
     <section class="article-page">
       <div class="content p-0 lg:p-5 pb-0">
         <div class="grid justify-content-center">
           <div class="col-12 lg:col-6">
             <EmbedComp v-if="embed" :code="embed" class="embed" />
-            <video
-              v-else-if="video.filename"
-              controls
-              autoplay
-              muted
-              loop
-              class="video"
-            >
+            <video v-else-if="video.filename" controls autoplay muted loop class="video">
               <source :src="video.filename" type="video/mp4" />
             </video>
             <sb-image v-else :src="poster" size="786x442" class="poster" />
@@ -68,12 +55,8 @@ const embed = story.value.content.embedcode
                 {{ story.content.title }}
               </h1>
               <MyTag :article="story" />
-              <p v-if="patientName" class="p-small">
-                Patient name: {{ patientName }}
-              </p>
-              <p v-if="performedBy" class="p-small">
-                Performed by: {{ performedBy }}
-              </p>
+              <p v-if="patientName" class="p-small">Patient name: {{ patientName }}</p>
+              <p v-if="performedBy" class="p-small">Performed by: {{ performedBy }}</p>
               <div v-if="description" v-html="description" class="mt-2" />
             </div>
             <div class="mt-2 flex justify-content-between">

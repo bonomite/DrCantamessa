@@ -12,7 +12,7 @@ const props = defineProps({
   },
   limit: {
     type: String,
-    default: '6',
+    default: "6",
   },
 })
 
@@ -20,7 +20,7 @@ const first = ref(0)
 const totalRecords = ref(null)
 
 // remove the initial "/"
-const folderName = props.to.replace(/^\/|\/$/g, '')
+const folderName = props.to.replace(/^\/|\/$/g, "")
 //console.log('folderName = ', folderName)
 const loadedArticles = ref([])
 
@@ -30,25 +30,19 @@ const {
   error,
   refresh,
 } = await useFetch(
-  `${config.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0&token=${config.STORYBLOK_API_KEY_PREVIEW}&version=published`,
+  `${config.public.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0&token=${config.public.STORYBLOK_API_KEY_PREVIEW}&version=published`,
   { key: `articles-${folderName}` }
 )
+
 totalRecords.value = Number(articles.value.stories.length / Number(props.limit))
 
 const loadMore = async (event = { page: 0 }) => {
   //console.log('MORE = ', event)
-  const {
-    data: moreArticles,
-    morePending,
-    error,
-    refresh,
-  } = await useFetch(
-    `${
-      config.STORYBLOK_API_URL
-    }/stories?starts_with=${folderName}&is_startpage=0${
-      props.limit ? `&per_page=${props.limit}` : ''
+  const { data: moreArticles, morePending, error, refresh } = await useFetch(
+    `${config.public.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0${
+      props.limit ? `&per_page=${props.limit}` : ""
     }&page=${event.page + 1}&token=${
-      config.STORYBLOK_API_KEY_PREVIEW
+      config.public.STORYBLOK_API_KEY_PREVIEW
     }&version=published`,
     { key: `articles-${folderName}-${event.page + 1}` }
   )
@@ -68,10 +62,7 @@ const showFolderContent = computed(() => {
   <div class="article-listing mb-8" v-if="showFolderContent">
     <div v-if="pending">LOADING...</div>
     <div v-else>
-      <div
-        v-if="!noHeader"
-        class="flex justify-content-between align-items-end"
-      >
+      <div v-if="!noHeader" class="flex justify-content-between align-items-end">
         <nuxt-link :to="`/${folderName}`" class="no-underline">
           <p class="uppercase text-2xl" style="line-height: 0.75rem">
             {{ folderName }}
@@ -94,10 +85,7 @@ const showFolderContent = computed(() => {
             </div>
           </div>
           <!-- articles -->
-          <div
-            v-else
-            class="col-12 lg:col-10 lg:col-offset-1 xl:col-8 xl:col-offset-2"
-          >
+          <div v-else class="col-12 lg:col-10 lg:col-offset-1 xl:col-8 xl:col-offset-2">
             <ArticleCard :article="article" />
           </div>
         </template>
