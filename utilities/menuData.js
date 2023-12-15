@@ -20,7 +20,6 @@ export async function getMenuData() {
         // temp condition to clear folders from, menu
         if (!foldersToSkipArr.includes(val.slug)) {
             if (val.is_folder || (!val.parent_id && val.real_path !== '/')) {
-                console.log('yes')
                 menuDataArr.push({
                     label: val.name,
                     to: `/${val.slug}`,

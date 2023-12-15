@@ -19,7 +19,7 @@ const props = defineProps({
 
 // remove the initial "/"
 const folderName = props.to.replace(/^\/|\/$/g, "")
-console.log("folderName = ", folderName)
+//console.log("folderName = ", folderName)
 
 const { data: articles, pending, error, refresh } = await useFetch(
   `${config.public.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0${
