@@ -79,6 +79,10 @@ export default defineNuxtConfig({
     //     },
     //     twitter: '@Dr_Cantamessa',
     // },
+    // cache rendered pages so repeat/bot traffic doesn't re-hit the origin on every request
+    routeRules: {
+        '/**': { swr: 3600 },
+    },
     components: true,
     runtimeConfig: {
         public: {
