@@ -13,7 +13,7 @@ const props = defineProps({
   },
   limit: {
     type: String,
-    default: "100",
+    default: "6",
   },
 })
 

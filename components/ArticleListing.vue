@@ -24,21 +24,23 @@ const folderName = props.to.replace(/^\/|\/$/g, "")
 //console.log('folderName = ', folderName)
 const loadedArticles = ref([])
 
-const {
-  data: articles,
-  pending,
-  error,
-  refresh,
-} = await useFetch(
-  `${config.public.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0&token=${config.public.STORYBLOK_API_KEY_PREVIEW}&version=published`,
-  { key: `articles-${folderName}` }
+// only ask for a count via response headers instead of downloading every story's full content
+const totalCount = ref(0)
+const { pending } = await useFetch(
+  `${config.public.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0&per_page=1&token=${config.public.STORYBLOK_API_KEY_PREVIEW}&version=published`,
+  {
+    key: `articles-count-${folderName}`,
+    onResponse({ response }) {
+      totalCount.value = Number(response.headers.get("total")) || 0
+    },
+  }
 )
 
-totalRecords.value = Number(articles.value.stories.length / Number(props.limit))
+totalRecords.value = Math.ceil(totalCount.value / Number(props.limit))
 
 const loadMore = async (event = { page: 0 }) => {
   //console.log('MORE = ', event)
-  const { data: moreArticles, morePending, error, refresh } = await useFetch(
+  const { data: moreArticles } = await useFetch(
     `${config.public.STORYBLOK_API_URL}/stories?starts_with=${folderName}&is_startpage=0${
       props.limit ? `&per_page=${props.limit}` : ""
     }&page=${event.page + 1}&token=${
